@@ -11,9 +11,6 @@ namespace SistemaGestionGimnasioApi.Data.Entities
 
         public string ActivityDescription { get; set; }
 
-        [ForeignKey("UserEmail")]
-        public string UserEmail { get;set; }
-        public ICollection<Trainer> Trainers { get; set; } = new List<Trainer>();
         
     }
 }

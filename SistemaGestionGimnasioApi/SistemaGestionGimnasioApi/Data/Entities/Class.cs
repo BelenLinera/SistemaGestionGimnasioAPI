@@ -16,7 +16,6 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         [ForeignKey("UserEmail")]
         public string TrainerEmail { get; set; }
         [Key, Column(Order = 3)]
-        [ForeignKey("DateTime")]
         public DateTime DateTimeClass { get; set; }
         public Activity Activity { get; set; }
         public Trainer Trainer { get; set; }
