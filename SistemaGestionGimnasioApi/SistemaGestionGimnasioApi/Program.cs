@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using SistemaGestionGimnasioApi.Data;
+using SistemaGestionGimnasioApi.DBContext;
 using SistemaGestionGimnasioApi.Services.Implementations;
 using SistemaGestionGimnasioApi.Services.Interfaces;
 using System.Text.Json.Serialization;
@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 
-// Evita bucles relacionados con las propiedades de navegación de las entidades.
+// Evita bucles relacionados con las propiedades de navegaciï¿½n de las entidades.
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;

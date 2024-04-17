@@ -5,8 +5,10 @@ namespace SistemaGestionGimnasioApi.Data.Entities
 {
     public class Trainer : User
     {
-        [ForeignKey("Activity")]
-        public string ActivityName { get; set; }
+        [ForeignKey("activityName")]
+        [Required]
+        public string ActivityName { get;set; }
+
         public Activity Activity { get; set; }
     }
 }

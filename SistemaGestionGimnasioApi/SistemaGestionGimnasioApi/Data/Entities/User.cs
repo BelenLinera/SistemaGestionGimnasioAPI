@@ -6,14 +6,16 @@ namespace SistemaGestionGimnasioApi.Data.Entities
     public class User
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public string LastName { get; set; }
+        [EmailAddress]
+        [Required]
         public string Email { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
         public string Password { get; set; }
-        public string UserName { get; set; }
         public string UserType { get; set; }
-        public bool State { get; set; }
+        public bool IsDeleted { get; set; } = false;
     }
 }

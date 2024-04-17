@@ -2,6 +2,6 @@
 {
     public class Client : User
     {
-        public bool AutorizationToReserve { get; set; }
+        public bool AutorizationToReserve { get; set; } = false;
     }
 }
