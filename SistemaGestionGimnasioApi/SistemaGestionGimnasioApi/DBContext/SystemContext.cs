@@ -1,49 +1,57 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MySql.EntityFrameworkCore;
 using SistemaGestionGimnasioApi.Data.Entities;
+using System.Reflection;
 
 namespace SistemaGestionGimnasioApi.DBContext
 {
     public class SystemContext : DbContext
     {
         //propiedades
+        public SystemContext(DbContextOptions<SystemContext> dbContextOptions) : base(dbContextOptions) { }
 
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Admin> Admins { get; set; }
-        public DbSet<Class> Classes { get; set; }
+        public DbSet<GymClass> GymClasses { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Reserve> Reserves { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
         public DbSet<User>? Users { get; set; }
+        public DbSet<TrainerActivity> TrainerActivities { get; set; }
 
         //constructor
-        public SystemContext(DbContextOptions<SystemContext> dbContextOptions) : base(dbContextOptions)
-        {
-
-        }
+       
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasDiscriminator(u => u.UserType);
-            modelBuilder.Entity<Trainer>()
+            modelBuilder.Entity<TrainerActivity>()
                 .HasOne(a => a.Activity)
                 .WithMany()
-                .HasForeignKey(a => a.ActivityName);
-            modelBuilder.Entity<Class>()
-                .HasOne(a => a.Activity)
+                .HasForeignKey(a => a.IdActivity);
+            modelBuilder.Entity<TrainerActivity>()
+                .HasOne(t => t.Trainer)
                 .WithMany()
-                .HasForeignKey(a => a.ActivityName);
-            modelBuilder.Entity<Class>()
-                .HasOne(a => a.Trainer)
+                .HasForeignKey(t => t.TrainerEmail);
+
+            modelBuilder.Entity<GymClass>()
+                .HasOne(c => c.Activity)
                 .WithMany()
-                .HasForeignKey(a => a.TrainerEmail);
+                .HasForeignKey(c => c.IdActivity);
+
+            modelBuilder.Entity<GymClass>()
+                .HasOne(c => c.Trainer)
+                .WithMany()
+                .HasForeignKey(c => c.TrainerEmail);
             modelBuilder.Entity<Reserve>()
-                .HasOne(c => c.Class)
+                .HasOne(r => r.GymClass)
                 .WithMany()
-                .HasForeignKey(c => c.DateTimeClass);
+                .HasForeignKey(r => r.IdGymClass);
+
             modelBuilder.Entity<Reserve>()
-                .HasOne(cli => cli.Client)
+                .HasOne(r => r.Client)
                 .WithMany()
-                .HasForeignKey(cli => cli.ClientEmail);
+                .HasForeignKey(r => r.ClientEmail);
 
 
 
@@ -60,6 +68,13 @@ namespace SistemaGestionGimnasioApi.DBContext
                     IsDeleted = true,
                     AutorizationToReserve = true
                 });
+            modelBuilder.Entity<Activity>().HasData(
+                new Activity
+                {
+                    IdActivity = -8,
+                    ActivityName = "Fútbol",
+                    ActivityDescription = "Actividad deportiva que involucra dos equipos compitiendo por marcar goles en la portería contraria."
+                });
             modelBuilder.Entity<Trainer>().HasData(
                 new Trainer
                 {
@@ -67,8 +82,25 @@ namespace SistemaGestionGimnasioApi.DBContext
                     LastName = "Lopez",
                     Email = "pedrolopez@gmail.com",
                     Password = "123456",
-                    IsDeleted = true
+                    IsDeleted = false,
                 });
+            modelBuilder.Entity<TrainerActivity>().HasData(new TrainerActivity
+            {
+                IdTrainerActivity = -6,
+                IdActivity = -8,
+                TrainerEmail ="pedrolopez@gmail.com"
+            });
+            modelBuilder.Entity<GymClass>().HasData(
+                new GymClass
+                {
+                    IdGymClass = -4,
+                    IdActivity= -6,
+                    TrainerEmail = "pedrolopez@gmail.com",
+                    DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0), // Ajusta la fecha y hora según necesites
+                    Capacity = 20 
+                }
+                );
+
             modelBuilder.Entity<Admin>().HasData(
                 new Admin
                 {
