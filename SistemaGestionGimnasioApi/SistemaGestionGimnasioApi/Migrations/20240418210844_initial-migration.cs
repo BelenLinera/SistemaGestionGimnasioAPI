@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaGestionGimnasioApi.Migrations
 {
-    public partial class TrainerActivitiestable : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -91,9 +91,7 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TrainerEmail = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IdActivity = table.Column<int>(type: "int", nullable: false),
-                    TrainerEmail1 = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    IdActivity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,11 +108,6 @@ namespace SistemaGestionGimnasioApi.Migrations
                         principalTable: "Users",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_TrainerActivities_Users_TrainerEmail1",
-                        column: x => x.TrainerEmail1,
-                        principalTable: "Users",
-                        principalColumn: "Email");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -169,12 +162,12 @@ namespace SistemaGestionGimnasioApi.Migrations
             migrationBuilder.InsertData(
                 table: "GymClasses",
                 columns: new[] { "IdGymClass", "Capacity", "DateTimeClass", "IdActivity", "TrainerEmail" },
-                values: new object[] { -4, 20, new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), -6, "pedrolopez@gmail.com" });
+                values: new object[] { -4, 20, new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), -8, "pedrolopez@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "TrainerActivities",
-                columns: new[] { "IdTrainerActivity", "IdActivity", "TrainerEmail", "TrainerEmail1" },
-                values: new object[] { -6, -8, "pedrolopez@gmail.com", null });
+                columns: new[] { "IdTrainerActivity", "IdActivity", "TrainerEmail" },
+                values: new object[] { -6, -8, "pedrolopez@gmail.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_GymClasses_IdActivity",
@@ -205,11 +198,6 @@ namespace SistemaGestionGimnasioApi.Migrations
                 name: "IX_TrainerActivities_TrainerEmail",
                 table: "TrainerActivities",
                 column: "TrainerEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TrainerActivities_TrainerEmail1",
-                table: "TrainerActivities",
-                column: "TrainerEmail1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

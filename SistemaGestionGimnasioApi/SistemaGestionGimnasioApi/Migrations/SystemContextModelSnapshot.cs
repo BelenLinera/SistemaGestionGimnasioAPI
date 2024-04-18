@@ -79,7 +79,7 @@ namespace SistemaGestionGimnasioApi.Migrations
                             IdGymClass = -4,
                             Capacity = 20,
                             DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdActivity = -6,
+                            IdActivity = -8,
                             TrainerEmail = "pedrolopez@gmail.com"
                         });
                 });
@@ -119,16 +119,11 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("TrainerEmail1")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("IdTrainerActivity");
 
                     b.HasIndex("IdActivity");
 
                     b.HasIndex("TrainerEmail");
-
-                    b.HasIndex("TrainerEmail1");
 
                     b.ToTable("TrainerActivities");
 
@@ -274,14 +269,10 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .IsRequired();
 
                     b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("TrainerActivities")
                         .HasForeignKey("TrainerEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Trainer", null)
-                        .WithMany("TrainerActivities")
-                        .HasForeignKey("TrainerEmail1");
 
                     b.Navigation("Activity");
 
