@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SistemaGestionGimnasioApi.Migrations
 {
-    public partial class TrainerActivitiestable : Migration
+    public partial class initialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -54,36 +54,6 @@ namespace SistemaGestionGimnasioApi.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "GymClasses",
-                columns: table => new
-                {
-                    IdGymClass = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    IdActivity = table.Column<int>(type: "int", nullable: false),
-                    TrainerEmail = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DateTimeClass = table.Column<DateTime>(type: "datetime(6)", nullable: false),
-                    Capacity = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GymClasses", x => x.IdGymClass);
-                    table.ForeignKey(
-                        name: "FK_GymClasses_Activities_IdActivity",
-                        column: x => x.IdActivity,
-                        principalTable: "Activities",
-                        principalColumn: "IdActivity",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_GymClasses_Users_TrainerEmail",
-                        column: x => x.TrainerEmail,
-                        principalTable: "Users",
-                        principalColumn: "Email",
-                        onDelete: ReferentialAction.Cascade);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
                 name: "TrainerActivities",
                 columns: table => new
                 {
@@ -91,9 +61,7 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     TrainerEmail = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    IdActivity = table.Column<int>(type: "int", nullable: false),
-                    TrainerEmail1 = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    IdActivity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -110,11 +78,28 @@ namespace SistemaGestionGimnasioApi.Migrations
                         principalTable: "Users",
                         principalColumn: "Email",
                         onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "GymClasses",
+                columns: table => new
+                {
+                    IdGymClass = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    IdTrainerActivity = table.Column<int>(type: "int", nullable: false),
+                    DateTimeClass = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Capacity = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GymClasses", x => x.IdGymClass);
                     table.ForeignKey(
-                        name: "FK_TrainerActivities_Users_TrainerEmail1",
-                        column: x => x.TrainerEmail1,
-                        principalTable: "Users",
-                        principalColumn: "Email");
+                        name: "FK_GymClasses_TrainerActivities_IdTrainerActivity",
+                        column: x => x.IdTrainerActivity,
+                        principalTable: "TrainerActivities",
+                        principalColumn: "IdTrainerActivity",
+                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -167,24 +152,19 @@ namespace SistemaGestionGimnasioApi.Migrations
                 values: new object[] { "pedrolopez@gmail.com", false, "Lopez", "Pedro", "123456", "Trainer" });
 
             migrationBuilder.InsertData(
-                table: "GymClasses",
-                columns: new[] { "IdGymClass", "Capacity", "DateTimeClass", "IdActivity", "TrainerEmail" },
-                values: new object[] { -4, 20, new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), -6, "pedrolopez@gmail.com" });
+                table: "TrainerActivities",
+                columns: new[] { "IdTrainerActivity", "IdActivity", "TrainerEmail" },
+                values: new object[] { -6, -8, "pedrolopez@gmail.com" });
 
             migrationBuilder.InsertData(
-                table: "TrainerActivities",
-                columns: new[] { "IdTrainerActivity", "IdActivity", "TrainerEmail", "TrainerEmail1" },
-                values: new object[] { -6, -8, "pedrolopez@gmail.com", null });
+                table: "GymClasses",
+                columns: new[] { "IdGymClass", "Capacity", "DateTimeClass", "IdTrainerActivity" },
+                values: new object[] { -4, 20, new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified), -6 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_GymClasses_IdActivity",
+                name: "IX_GymClasses_IdTrainerActivity",
                 table: "GymClasses",
-                column: "IdActivity");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GymClasses_TrainerEmail",
-                table: "GymClasses",
-                column: "TrainerEmail");
+                column: "IdTrainerActivity");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Reserves_ClientEmail",
@@ -205,11 +185,6 @@ namespace SistemaGestionGimnasioApi.Migrations
                 name: "IX_TrainerActivities_TrainerEmail",
                 table: "TrainerActivities",
                 column: "TrainerEmail");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_TrainerActivities_TrainerEmail1",
-                table: "TrainerActivities",
-                column: "TrainerEmail1");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -218,10 +193,10 @@ namespace SistemaGestionGimnasioApi.Migrations
                 name: "Reserves");
 
             migrationBuilder.DropTable(
-                name: "TrainerActivities");
+                name: "GymClasses");
 
             migrationBuilder.DropTable(
-                name: "GymClasses");
+                name: "TrainerActivities");
 
             migrationBuilder.DropTable(
                 name: "Activities");

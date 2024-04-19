@@ -58,18 +58,12 @@ namespace SistemaGestionGimnasioApi.Migrations
                     b.Property<DateTime>("DateTimeClass")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<int>("IdActivity")
+                    b.Property<int>("IdTrainerActivity")
                         .HasColumnType("int");
-
-                    b.Property<string>("TrainerEmail")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
 
                     b.HasKey("IdGymClass");
 
-                    b.HasIndex("IdActivity");
-
-                    b.HasIndex("TrainerEmail");
+                    b.HasIndex("IdTrainerActivity");
 
                     b.ToTable("GymClasses");
 
@@ -79,8 +73,7 @@ namespace SistemaGestionGimnasioApi.Migrations
                             IdGymClass = -4,
                             Capacity = 20,
                             DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0, 0, DateTimeKind.Unspecified),
-                            IdActivity = -6,
-                            TrainerEmail = "pedrolopez@gmail.com"
+                            IdTrainerActivity = -6
                         });
                 });
 
@@ -119,16 +112,11 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("TrainerEmail1")
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("IdTrainerActivity");
 
                     b.HasIndex("IdActivity");
 
                     b.HasIndex("TrainerEmail");
-
-                    b.HasIndex("TrainerEmail1");
 
                     b.ToTable("TrainerActivities");
 
@@ -229,21 +217,13 @@ namespace SistemaGestionGimnasioApi.Migrations
 
             modelBuilder.Entity("SistemaGestionGimnasioApi.Data.Entities.GymClass", b =>
                 {
-                    b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Activity", "Activity")
+                    b.HasOne("SistemaGestionGimnasioApi.Data.Entities.TrainerActivity", "TrainerActivity")
                         .WithMany()
-                        .HasForeignKey("IdActivity")
+                        .HasForeignKey("IdTrainerActivity")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Trainer", "Trainer")
-                        .WithMany()
-                        .HasForeignKey("TrainerEmail")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Activity");
-
-                    b.Navigation("Trainer");
+                    b.Navigation("TrainerActivity");
                 });
 
             modelBuilder.Entity("SistemaGestionGimnasioApi.Data.Entities.Reserve", b =>
@@ -274,14 +254,10 @@ namespace SistemaGestionGimnasioApi.Migrations
                         .IsRequired();
 
                     b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Trainer", "Trainer")
-                        .WithMany()
+                        .WithMany("TrainerActivities")
                         .HasForeignKey("TrainerEmail")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SistemaGestionGimnasioApi.Data.Entities.Trainer", null)
-                        .WithMany("TrainerActivities")
-                        .HasForeignKey("TrainerEmail1");
 
                     b.Navigation("Activity");
 

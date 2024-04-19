@@ -9,14 +9,12 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdGymClass { get; set; }
-        [ForeignKey("IdActivity")]
-        public int IdActivity { get; set; }
-        [Required]
-        public Activity Activity { get; set; }
 
-        [ForeignKey("TrainerEmail")]
-        public string TrainerEmail { get; set; }
-        public Trainer Trainer { get; set; }
+        [ForeignKey("IdTrainerActivity")]
+        public int IdTrainerActivity { get; set; }
+        public TrainerActivity TrainerActivity { get; set; }
+
+  
         public DateTime DateTimeClass { get; set; }
         public int Capacity { get; set; }
 
