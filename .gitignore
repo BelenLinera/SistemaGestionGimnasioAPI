@@ -9,7 +9,11 @@ CHECKLIST.md
 *.user
 *.userosscache
 *.sln.docstates
-.vscode/
+.vs/
+
+appsettings.json
+launchSettings.json
+
 
 
 # User-specific files (MonoDevelop/Xamarin Studio)
@@ -46,11 +50,12 @@ TestResult.xml
 dlldata.c
 
 # .NET Core
+appsettings.json
 project.lock.json
 project.fragment.lock.json
 artifacts/
-**/Properties/launchSettings.json
-appsettings.json
+/launchSettings.json
+
 Migrations/
 *_i.c
 *_p.c
