@@ -31,11 +31,7 @@ namespace SistemaGestionGimnasioApi.DBContext
                 .HasForeignKey(a => a.IdActivity);
             modelBuilder.Entity<TrainerActivity>()
                 .HasOne(t => t.Trainer)
-<<<<<<< HEAD
                 .WithMany(t => t.TrainerActivities)
-=======
-                .WithMany(t=> t.TrainerActivities)
->>>>>>> 72e263193206fe4b65b2adb5ba42e91660144e93
                 .HasForeignKey(t => t.TrainerEmail);
             modelBuilder.Entity<GymClass>()
                 .HasOne(c => c.TrainerActivity)
@@ -91,14 +87,8 @@ namespace SistemaGestionGimnasioApi.DBContext
                 new GymClass
                 {
                     IdGymClass = -4,
-<<<<<<< HEAD
                     IdTrainerActivity= -6,
-                    DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0), // Ajusta la fecha y hora según necesites
-=======
-                    IdActivity= -8,
-                    TrainerEmail = "pedrolopez@gmail.com",
                     DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0),
->>>>>>> 72e263193206fe4b65b2adb5ba42e91660144e93
                     Capacity = 20 
                 }
                 );
