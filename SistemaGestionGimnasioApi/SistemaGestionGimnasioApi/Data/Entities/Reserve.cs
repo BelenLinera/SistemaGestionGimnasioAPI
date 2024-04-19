@@ -5,15 +5,14 @@ namespace SistemaGestionGimnasioApi.Data.Entities
 {
     public class Reserve
     {
-
-
-        [Key, Column(Order = 1)]
-        [ForeignKey("DateTime")]
-        public DateTime DateTimeClass { get; set; }
-        [Key, Column(Order = 2)]
-        [ForeignKey("UserEmail")]
-        public int ClientEmail { get; set; }
-        public Class Class { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+        [ForeignKey("IdGymClass")]
+        public int IdGymClass { get; set; }
+        public GymClass GymClass { get; set; }
+        [ForeignKey("ClientEmail")]
+        public string ClientEmail { get; set; }
         public Client Client { get; set; }
     }
 }

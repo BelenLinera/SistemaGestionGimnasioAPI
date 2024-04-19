@@ -20,9 +20,9 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//configuracion de la base de datos 
-builder.Services.AddDbContext<SystemContext>(dbContextOptions => dbContextOptions.UseSqlite(
-    builder.Configuration["DB:ConnectionString"]));
+//configuracion de la base de datos
+var connectionString = builder.Configuration.GetConnectionString("SystemGymDBConnectionString");
+builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
 //inyeccion de dependencias
 //builder.Services.AddScoped<IUserService, UserService>();
