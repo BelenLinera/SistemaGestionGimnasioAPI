@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
@@ -20,12 +21,13 @@ namespace SistemaGestionGimnasioApi.Controllers
             _adminService = adminService;
         }
 
-        [HttpGet("{email}")]
+        [HttpGet("{email}", Name = nameof(GetAdminByEmail))]
+        //[Authorize]
         public IActionResult GetAdminByEmail(string email)
         {
-            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            if (role == "Admin")
-            {
+            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            //if (role == "Admin")
+            //{
                 User user = _adminService.GetAdminByEmail(email);
                 if (user == null)
                 {
@@ -33,35 +35,57 @@ namespace SistemaGestionGimnasioApi.Controllers
                 }
                 return Ok(user);
 
-            }
-            return Forbid();
+            //}
+            //return Forbid();
         }
 
         [HttpGet]
+        //[Authorize]
         public IActionResult GetAllAdmins()
         {
-            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            if (role == "Admin")
-            {
+            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            //if (role == "Admin")
+            //{
                 List<Admin> admins = _adminService.GetAllAdmins();
-            }
-            return Forbid(); 
+                return Ok(admins);
+            //}
+            //return Forbid(); 
         }
 
         [HttpPost]
-        public IActionResult CreateAdmin([FromBody] UserDto userDto)
+        //[Authorize]
+        public async Task<IActionResult> CreateAdmin([FromBody] UserDto userDto)
         {
-            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            if (role == "Admin")
-            {
+            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            //if (role == "Admin")
+            //{
                 if (userDto == null)
                 {
                     return BadRequest("La solicitud no puede ser nula");
                 }
                 Admin createdAdmin = _adminService.CreateAdmin(userDto);
-                return CreatedAtAction("GetUserByEmail", new {email = createdAdmin.Email}, createdAdmin);
+                await _adminService.SaveChangesAsync();
+            return CreatedAtRoute(nameof(GetAdminByEmail), new { email = userDto.Email }, userDto);
+
+            //}
+            //return Forbid();
+        }
+        [HttpPut]
+        //[Authorize]
+        public async Task<IActionResult> EditAdmin(EditUserDto adminEdited, string emailAdmin)
+        {
+            if (adminEdited == null || emailAdmin == null)
+            {
+                return BadRequest();
             }
-            return Forbid();
+            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            //if (role == "Admin")
+            //{
+                _adminService.EditAdmin(adminEdited, emailAdmin);
+                _adminService.SaveChangesAsync();
+                return Ok(adminEdited);
+            //}
+            //return Forbid();
         }
     }
 }

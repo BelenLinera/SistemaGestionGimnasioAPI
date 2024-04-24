@@ -1,4 +1,5 @@
-﻿using SistemaGestionGimnasioApi.Data.Entities;
+﻿using AutoMapper;
+using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
 using SistemaGestionGimnasioApi.Services.Interfaces;
@@ -8,9 +9,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class AdminService : IAdminService
     {
         private readonly SystemContext _context;
-        public AdminService(SystemContext context)
+        private readonly IMapper _mapper;
+        public AdminService(SystemContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
         public User GetAdminByEmail(string email)
         {
@@ -25,22 +28,26 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         }
         public List<Admin> GetAllAdmins()
         {
-            return _context.Admins.Where(u => u.IsDeleted).ToList();
+            return _context.Admins.Where(u => u.IsDeleted == false).ToList();
         }
 
         public Admin CreateAdmin(UserDto userDto)
         {
-            var newAdmin = new Admin
-            {
-                Name = userDto.Name,
-                LastName = userDto.LastName,
-                Email = userDto.Email,
-                Password = userDto.Password,
-                UserType = "Admin",
-            };
-            _context.Admins.Add(newAdmin);
-            _context.SaveChanges();
-            return newAdmin;
+            Admin? userEntity = _mapper.Map<Admin>(userDto);
+            _context.Admins.Add(userEntity);
+            return userEntity;
+        }
+        public void EditAdmin(EditUserDto admin, string emailAdmin)
+        {
+            Admin adminToEdit = _context.Admins.SingleOrDefault(u => u.Email == emailAdmin);
+            Admin adminEdited = _mapper.Map(admin, adminToEdit);
+
+            _context.Admins.Update(adminEdited);
+
+        }
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() > 0);
         }
     }
 }
