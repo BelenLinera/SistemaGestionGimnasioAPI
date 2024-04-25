@@ -81,9 +81,30 @@ namespace SistemaGestionGimnasioApi.Controllers
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
             //if (role == "Admin")
             //{
-                _adminService.EditAdmin(adminEdited, emailAdmin);
-                _adminService.SaveChangesAsync();
+                Admin adminEdit= _adminService.EditAdmin(adminEdited, emailAdmin);
+                if(adminEdit == null)
+                {
+                    return NotFound($"El admin con correo electrónico '{emailAdmin}' no se encontró.");
+            }
+                await _adminService.SaveChangesAsync();
                 return Ok(adminEdited);
+            //}
+            //return Forbid();
+        }
+        [HttpDelete("{adminEmail}")]
+        public async Task<IActionResult> DeleteUser(string adminEmail)
+        {
+            //string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
+            //if (role == "Admin")
+            //{
+                var adminToDelete = _adminService.GetAdminByEmail(adminEmail);
+                if (adminToDelete == null)
+                {
+                    return NotFound("Admin inexistente");
+                }
+                _adminService.DeleteAdmin((Admin) adminToDelete);
+                await _adminService.SaveChangesAsync();
+                return NoContent();
             //}
             //return Forbid();
         }

@@ -37,13 +37,24 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             _context.Admins.Add(userEntity);
             return userEntity;
         }
-        public void EditAdmin(EditUserDto admin, string emailAdmin)
+        public Admin EditAdmin(EditUserDto admin, string emailAdmin)
         {
             Admin adminToEdit = _context.Admins.SingleOrDefault(u => u.Email == emailAdmin);
+            if (adminToEdit == null)
+            {
+                return null;
+            }
             Admin adminEdited = _mapper.Map(admin, adminToEdit);
-
             _context.Admins.Update(adminEdited);
-
+            return adminEdited;
+        }
+        public void DeleteAdmin(Admin adminToDelete)
+        {
+            if (adminToDelete == null)
+            {
+                throw new ArgumentNullException(nameof(adminToDelete));
+            }
+            _context.Remove(adminToDelete);
         }
         public async Task<bool> SaveChangesAsync()
         {
