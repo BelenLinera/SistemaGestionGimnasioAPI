@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "sml+8YnRJsE+Ry0tTrYHRNF9X8e2FL1xS76K2PSr97RsFWcmgLV1gPWzCFxseZHR4qKjl6v3R6VJ5CABOAJkQA==",
+  "dgSpecHash": "wa/d6krKjR2S/mrY6mUtp9uOmgLDVJJkxIbbY5Xes6nUW/XecdgE0ARe8VaP2zw1XZKedVeS0lWxOHl2F07mCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Felipe\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\Felipe\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\Felipe\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",
     "C:\\Users\\Felipe\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",

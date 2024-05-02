@@ -1,4 +1,5 @@
-﻿using SendGrid.Helpers.Errors.Model;
+﻿using AutoMapper;
+using SendGrid.Helpers.Errors.Model;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
@@ -6,13 +7,15 @@ using SistemaGestionGimnasioApi.Services.Interfaces;
 
 namespace SistemaGestionGimnasioApi.Services.Implementations
 {
-    public class TrainerService: ITrainerService
+    public class TrainerService : ITrainerService
     {
         private readonly SystemContext _context;
+        private readonly IMapper _mapper;
 
-        public TrainerService (SystemContext context)
+        public TrainerService (SystemContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public Trainer GetByEmail(string email)
@@ -41,14 +44,8 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         {
             try
             {
-                //creamos el nuevo objeto trainer con los datos
-                var newTrainer = new Trainer
-                {
-                    Name = createTrainerDTO.Name,
-                    LastName = createTrainerDTO.LastName,
-                    Email = createTrainerDTO.Email,
-                    Password = createTrainerDTO.Password
-                };
+                //creamos el nuevo objeto trainer con los datos que vienen del mapper
+                Trainer? newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
 
                 //agregamos el nuevo trainer a la DB
                 _context.Trainers.Add(newTrainer);
@@ -62,11 +59,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             }
         }
 
-        public void UpdateByEmail(string email, TrainerDto updateDto)
+        public Trainer UpdateByEmail(string email, TrainerDto updateDto)
         {
             try
             {
-                var existingTrainer = _context.Trainers.FirstOrDefault(t => t.Email == email);
+                Trainer existingTrainer = _context.Trainers.FirstOrDefault(t => t.Email == email);
 
                 if (existingTrainer == null)
                 {
@@ -74,12 +71,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
                 }
 
                 // Actualizar propiedades del entrenador existente
-                existingTrainer.Name = updateDto.Name;
-                existingTrainer.LastName = updateDto.LastName;
-                existingTrainer.Password = updateDto.Password;
+                Trainer trainerEditing = _mapper.Map(updateDto, existingTrainer);
 
-                _context.Trainers.Update(existingTrainer);
+                _context.Trainers.Update(trainerEditing);
                 _context.SaveChanges();
+                return trainerEditing;
             }
             catch(Exception)
             {
