@@ -125,3 +125,8 @@ C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGim
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.ExpressionMapping.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\appsettings.json
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Collection.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Collection.EntityFrameworkCore.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.ExpressionMapping.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

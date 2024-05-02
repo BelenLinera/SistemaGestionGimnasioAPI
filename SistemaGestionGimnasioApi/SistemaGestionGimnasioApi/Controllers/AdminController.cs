@@ -63,6 +63,10 @@ namespace SistemaGestionGimnasioApi.Controllers
                 {
                     return BadRequest("La solicitud no puede ser nula");
                 }
+                if( _adminService.GetAdminByEmail(userDto.Email) != null  )
+                {
+                return Conflict("Este email ya esta en uso");
+                }
                 Admin createdAdmin = _adminService.CreateAdmin(userDto);
                 await _adminService.SaveChangesAsync();
             return CreatedAtRoute(nameof(GetAdminByEmail), new { email = userDto.Email }, userDto);

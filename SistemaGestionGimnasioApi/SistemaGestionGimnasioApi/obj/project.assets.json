@@ -2409,19 +2409,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\josed\\.nuget\\packages\\": {}
+    "C:\\Users\\Pc\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+      "projectUniqueName": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
       "projectName": "SistemaGestionGimnasioApi",
-      "projectPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
-      "packagesPath": "C:\\Users\\josed\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
+      "projectPath": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+      "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
+      "outputPath": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\josed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
