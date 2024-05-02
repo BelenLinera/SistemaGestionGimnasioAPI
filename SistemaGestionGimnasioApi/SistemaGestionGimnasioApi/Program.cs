@@ -30,7 +30,7 @@ builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connect
 //builder.Services.AddScoped<IActivityService, ActivityService>();
 //builder.Services.AddScoped<IClassService, ClassService>();
 //builder.Services.AddScoped<IClientService, ClientService>();
-//builder.Services.AddScoped<ITrainerService, TrainerService>();
+builder.Services.AddScoped<ITrainerService, TrainerService>();
 //builder.Services.AddScoped<IReserveService, ReserveService>();
 
 

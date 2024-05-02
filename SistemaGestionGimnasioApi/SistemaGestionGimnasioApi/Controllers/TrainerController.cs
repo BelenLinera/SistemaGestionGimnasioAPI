@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SendGrid.Helpers.Errors.Model;
+using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
 
@@ -42,6 +43,32 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
         }
 
+        [HttpGet]
+        public IActionResult GetAllTrainers() 
+        {
+            List<Trainer> trainers = _trainerService.GetAllTrainers();
+            return Ok(trainers);
+        }
+
+        [HttpPost]
+        public IActionResult CreateTrainer([FromBody] CreateTrainerDTO createTrainerDTO)
+        {
+            try
+            {
+                if (createTrainerDTO == null)
+                {
+                    return BadRequest("La peticion no puede ser nula");
+                }
+
+                Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
+                return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
+            }
+            catch(Exception)
+            {
+                throw new Exception("Ocurrio un error al crear un entrenador");
+            }
+        }
+
         [HttpPut("{email}")]
         public IActionResult UpdateByEmail(string email, [FromBody] TrainerDto updateDto)
         {
@@ -55,7 +82,7 @@ namespace SistemaGestionGimnasioApi.Controllers
 
                 _trainerService.UpdateByEmail(email, updateDto);
 
-                return Ok(true); // La actualización fue exitosa
+                return Ok(updateDto); // La actualización fue exitosa
             }
             catch (NotFoundException ex)
             {
@@ -84,19 +111,13 @@ namespace SistemaGestionGimnasioApi.Controllers
                     return NotFound($"No se encontró ningún entrenador con el correo electrónico: {email}");
                 }
 
-                return Ok(true);
+                return Ok(new {Message = "Baja logica realizada correctamente"});
             }
             catch (Exception ex)
             {
                 return StatusCode(500, $"Ocurrió un error al eliminar el entrenador: {ex.Message}");
             }
         }
-
-
-
-
-
-
     }
 
 }

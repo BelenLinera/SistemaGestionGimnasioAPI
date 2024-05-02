@@ -2293,24 +2293,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\morac\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\Felipe\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+      "projectUniqueName": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
       "projectName": "SistemaGestionGimnasioApi",
-      "projectPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
-      "packagesPath": "C:\\Users\\morac\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
+      "projectPath": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+      "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\morac\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -2396,7 +2391,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
       }
     }
   }
