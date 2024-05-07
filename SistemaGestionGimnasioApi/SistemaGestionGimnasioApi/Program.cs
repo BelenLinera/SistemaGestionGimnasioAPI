@@ -29,7 +29,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IAdminService, AdminService>();
 //builder.Services.AddScoped<IActivityService, ActivityService>();
 //builder.Services.AddScoped<IClassService, ClassService>();
-//builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 //builder.Services.AddScoped<ITrainerService, TrainerService>();
 //builder.Services.AddScoped<IReserveService, ReserveService>();
 

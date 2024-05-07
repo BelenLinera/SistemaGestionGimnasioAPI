@@ -41,7 +41,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         public IActionResult GetAllClients()
         {
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
+            //if (role == "Client")
             //{
             List<Client> clients = _clientService.GetAllClients();
             return Ok(clients);

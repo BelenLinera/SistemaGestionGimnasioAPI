@@ -8,12 +8,12 @@ namespace SistemaGestionGimnasioApi.Data.Profiles
     {
         public ClientProfile()
         {
-            CreateMap<UserDto, Admin>()
+            CreateMap<UserDto, Client>()
                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
-            CreateMap<EditUserDto, Admin>()
+            CreateMap<EditUserDto, Client>()
                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName));
         }
