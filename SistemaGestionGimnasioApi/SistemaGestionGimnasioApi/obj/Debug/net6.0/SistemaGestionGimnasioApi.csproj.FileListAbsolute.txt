@@ -249,3 +249,4 @@ C:\Users\Felipe\Desktop\cosas\Cosas-facu\Cuatrimestre4\PPS\SistemaGestionGimnasi
 C:\Users\Felipe\Desktop\cosas\Cosas-facu\Cuatrimestre4\PPS\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\SistemaGestionGimnasioApi.genruntimeconfig.cache
 C:\Users\Felipe\Desktop\cosas\Cosas-facu\Cuatrimestre4\PPS\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\ref\SistemaGestionGimnasioApi.dll
 C:\Users\Felipe\Desktop\cosas\Cosas-facu\Cuatrimestre4\PPS\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.dll
+C:\Users\morac\Desktop\UltimoCuatri\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.dll

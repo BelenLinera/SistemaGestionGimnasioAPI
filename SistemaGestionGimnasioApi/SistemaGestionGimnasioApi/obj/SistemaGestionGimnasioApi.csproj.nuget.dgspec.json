@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
+    "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
+    "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "projectUniqueName": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
         "projectName": "SistemaGestionGimnasioApi",
-        "projectPath": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
-        "packagesPath": "C:\\Users\\Felipe\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Felipe\\Desktop\\cosas\\Cosas-facu\\Cuatrimestre4\\PPS\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
+        "projectPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "packagesPath": "C:\\Users\\morac\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Felipe\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\morac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -104,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
