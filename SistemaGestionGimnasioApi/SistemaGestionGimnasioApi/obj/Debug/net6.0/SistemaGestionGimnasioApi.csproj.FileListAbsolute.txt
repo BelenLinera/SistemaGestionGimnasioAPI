@@ -125,3 +125,8 @@ C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGim
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.ExpressionMapping.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\appsettings.json
+C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.Google.dll
+C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

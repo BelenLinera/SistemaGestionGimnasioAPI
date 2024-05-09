@@ -26,14 +26,10 @@ namespace SistemaGestionGimnasioApi.Controllers
         public IActionResult Authenticate([FromBody] CredentialsDto credentialDto)
         {
             BaseResponse validateUserResult = _userService.ValidateUser(credentialDto.Email, credentialDto.Password);
-            if (validateUserResult.Message == "Wrong email")
+            if (validateUserResult.Message == "Wrong Email or password")
             {
                 return BadRequest(validateUserResult.Message);
             } 
-            else if (validateUserResult.Message == "Wrong password")
-            {
-                return Unauthorized();
-            }
             if (validateUserResult.Result)
             {
                 User user = _userService.GetUserByEmail(credentialDto.Email);
@@ -43,8 +39,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 var signature = new SigningCredentials(securityPassword, SecurityAlgorithms.HmacSha256);
                 //configura las claims
                 var claimsForToken = new List<Claim>();
-                claimsForToken.Add(new Claim("given_name", user.Name));
-                claimsForToken.Add(new Claim("family_name", user.LastName));
+                claimsForToken.Add(new Claim("sub", user.Email));
                 claimsForToken.Add(new Claim("role", user.UserType));
                 //crea el token con las configuraciones
                 var jwtSecurityToken = new JwtSecurityToken(

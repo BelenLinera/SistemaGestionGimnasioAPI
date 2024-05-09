@@ -8,9 +8,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class UserService : IUserService
     {
         private readonly SystemContext _context;
-        public UserService(SystemContext context)
+        private readonly IPaswordHasherService _paswordHasherService;
+        public UserService(SystemContext context, IPaswordHasherService paswordHasherService)
         {
             _context = context;
+            _paswordHasherService = paswordHasherService;
         }
         public BaseResponse ValidateUser(string email, string password)
         {
@@ -18,7 +20,7 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             User? userForLogin = _context.Users.SingleOrDefault(u => u.Email == email);
             if (userForLogin != null)
             {
-                if (userForLogin.Password == password)
+                if (_paswordHasherService.Verify(userForLogin.Password, password))
                 {
                     response.Result = true;
                     response.Message = "login succesfull";
@@ -26,13 +28,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
                 else
                 {
                     response.Result = false;
-                    response.Message = "Wrong password";
+                    response.Message = "Wrong Email or passowrd";
                 }
             }
             else
             {
                 response.Result = false;
-                response.Message = "wrong email";
+                response.Message = "Wrong Email or Passowrd";
             }
             return response;
 
