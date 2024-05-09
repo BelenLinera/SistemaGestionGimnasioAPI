@@ -41,6 +41,8 @@ namespace SistemaGestionGimnasioApi.Controllers
                 var claimsForToken = new List<Claim>();
                 claimsForToken.Add(new Claim("sub", user.Email));
                 claimsForToken.Add(new Claim("role", user.UserType));
+                claimsForToken.Add(new Claim("name", user.Name));
+                claimsForToken.Add(new Claim("lastName", user.LastName));
                 //crea el token con las configuraciones
                 var jwtSecurityToken = new JwtSecurityToken(
                     _config["Authentication:Issuer"],

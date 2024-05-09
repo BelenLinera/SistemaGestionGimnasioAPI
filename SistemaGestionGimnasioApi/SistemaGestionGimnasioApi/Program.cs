@@ -63,7 +63,7 @@ builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connect
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPaswordHasherService,PasswordHasherService>();
 //inyeccion de dependencias
-//builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 //builder.Services.AddScoped<IActivityService, ActivityService>();
 //builder.Services.AddScoped<IClassService, ClassService>();
@@ -83,6 +83,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors(options =>
+{
+    options.AllowAnyOrigin()
+           .AllowAnyHeader()
+           .AllowAnyMethod();
+});
 
 app.UseAuthorization();
 
