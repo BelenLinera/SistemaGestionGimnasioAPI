@@ -25,12 +25,12 @@ namespace SistemaGestionGimnasioApi.Controllers
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
             //if (role == "Client")
             //{
-            User user = _clientService.GetClientByEmail(email);
-            if (user == null)
+            User client = _clientService.GetClientByEmail(email);
+            if (client == null)
             {
                 return NotFound();
             }
-            return Ok(user);
+            return Ok(client);
 
             //}
             //return Forbid();
@@ -80,7 +80,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 return BadRequest();
             }
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
+            //if (role == "Client")
             //{
             Client clientEdit = _clientService.EditClient(clientEdited, emailClient);
             if (clientEdit == null)
@@ -92,6 +92,22 @@ namespace SistemaGestionGimnasioApi.Controllers
             //}
             //return Forbid();
         }
+        [HttpPatch("{emailClient}/state")]
+        //[Authorize]
+        public async Task<IActionResult> UpdateClientActiveState([FromRoute]string emailClient, bool autorizationToReserve)
+        {
+            Client existingClient =  _clientService.GetClientByEmail(emailClient);
+            if (existingClient == null)
+            {
+                return NotFound($"El cliente con correo electrónico '{emailClient}' no se encontró.");
+            }
+
+            existingClient.AutorizationToReserve = autorizationToReserve;
+
+            await _clientService.SaveChangesAsync();
+            return Ok(existingClient);
+        }
+
         [HttpDelete("{clientEmail}")]
         public async Task<IActionResult> DeleteUser(string clientEmail)
         {

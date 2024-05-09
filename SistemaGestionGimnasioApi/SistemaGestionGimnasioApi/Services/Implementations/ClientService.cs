@@ -15,7 +15,7 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             _context = context;
             _mapper = mapper;
         }
-        public User GetClientByEmail(string email)
+        public Client GetClientByEmail(string email)
         {
             try
             {
@@ -47,6 +47,23 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             Client clientEdited = _mapper.Map(client, clientToEdit);
             _context.Clients.Update(clientEdited);
             return clientEdited;
+        }
+        public Client UpdateClientActiveState(string emailClient, bool autorizationToReserve)
+        {
+            Client clientToUpdate = _context.Clients.SingleOrDefault(u => u.Email == emailClient);
+
+            if (clientToUpdate == null)
+            {
+                return null; 
+            }
+
+            clientToUpdate.AutorizationToReserve = autorizationToReserve;
+
+            _context.Clients.Update(clientToUpdate);
+
+            _context.SaveChanges();
+
+            return clientToUpdate;
         }
         public void DeleteClient(Client clientToDelete)
         {
