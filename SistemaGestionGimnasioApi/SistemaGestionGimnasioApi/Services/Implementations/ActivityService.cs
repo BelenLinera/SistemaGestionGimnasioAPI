@@ -16,11 +16,12 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             _context = context;
             _mapper = mapper;
         }
-        public ActivityService GetActivityByName(string activityName)
+        public Activity GetActivityByName(string activityName)
         {
             try
             {
                 return _context.Activities.FirstOrDefault(a => a.ActivityName == activityName);
+                //return _context.Activities.FirstOrDefault(a => a.ActivityName == activityName);
             }
             catch (Exception ex)
             {
