@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
+    "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
+    "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "projectUniqueName": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
         "projectName": "SistemaGestionGimnasioApi",
-        "projectPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
-        "packagesPath": "C:\\Users\\josed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
+        "projectPath": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "packagesPath": "C:\\Users\\Pc\\.nuget\\packages\\",
+        "outputPath": "C:\\1Programacion\\Quinto cuatrimestre\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\josed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Pc\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
               "version": "[6.0.0, )"
