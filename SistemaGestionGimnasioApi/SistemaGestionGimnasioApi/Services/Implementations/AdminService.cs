@@ -9,9 +9,9 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class AdminService : IAdminService
     {
         private readonly SystemContext _context;
-        private readonly IPaswordHasherService _paswordHasherService;
+        private readonly IPaswordService _paswordHasherService;
         private readonly IMapper _mapper;
-        public AdminService(SystemContext context, IMapper mapper, IPaswordHasherService paswordHasherService)
+        public AdminService(SystemContext context, IMapper mapper, IPaswordService paswordHasherService)
         {
             _context = context;
             _mapper = mapper;

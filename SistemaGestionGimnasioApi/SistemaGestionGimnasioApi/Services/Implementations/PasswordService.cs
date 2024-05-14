@@ -4,7 +4,7 @@ using System.Security.Cryptography;
 
 namespace SistemaGestionGimnasioApi.Services.Implementations
 {
-    public class PasswordHasherService: IPaswordHasherService
+    public class PasswordService: IPaswordService
     {
         private const int SaltSize = 128 / 8;
         private const int KeySize = 256 / 8;
