@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SendGrid.Helpers.Errors.Model;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
@@ -42,45 +43,31 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
         public Trainer CreateTrainer(CreateTrainerDTO createTrainerDTO)
         {
-            try
-            {
-                //creamos el nuevo objeto trainer con los datos que vienen del mapper
-                Trainer? newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
+                
+            Trainer? newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
 
-                //agregamos el nuevo trainer a la DB
-                _context.Trainers.Add(newTrainer);
-                _context.SaveChanges();
+            _context.Trainers.Add(newTrainer);
 
-                return newTrainer;
-            }
-            catch (Exception)
-            {
-                throw new Exception("Error al crear un nuevo entrenador");
-            }
+            return newTrainer;
+            
         }
 
         public Trainer UpdateByEmail(string email, TrainerDto updateDto)
         {
-            try
+            
+            Trainer existingTrainer =  _context.Trainers.FirstOrDefault(t => t.Email == email);
+
+            if (existingTrainer == null)
             {
-                Trainer existingTrainer = _context.Trainers.FirstOrDefault(t => t.Email == email);
-
-                if (existingTrainer == null)
-                {
-                    throw new NotFoundException($"No se encontró ningún entrenador con el correo electrónico: {email}");
-                }
-
-                // Actualizar propiedades del entrenador existente
-                Trainer trainerEditing = _mapper.Map(updateDto, existingTrainer);
-
-                _context.Trainers.Update(trainerEditing);
-                _context.SaveChanges();
-                return trainerEditing;
+                throw new NotFoundException($"No se encontró ningún entrenador con el correo electrónico: {email}");
             }
-            catch(Exception)
-            {
-                throw new Exception("Error al actualizar en entrenador");
-            }
+
+            // Actualizar propiedades del entrenador existente
+            Trainer trainerEditing = _mapper.Map(updateDto, existingTrainer);
+
+            _context.Trainers.Update(trainerEditing);
+            return trainerEditing;
+           
             
         }
 
@@ -107,6 +94,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             {
                 throw new Exception("Error al eliminar el entrenador");
             }
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() > 0);
         }
 
     }

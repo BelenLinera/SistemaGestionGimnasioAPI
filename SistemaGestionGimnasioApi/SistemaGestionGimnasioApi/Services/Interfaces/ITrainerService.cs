@@ -10,5 +10,6 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
         Trainer CreateTrainer(CreateTrainerDTO createTrainerDTO);
         Trainer UpdateByEmail(string email, TrainerDto updateDto);
         bool DeleteByEmail(string email);
+        Task<bool> SaveChangesAsync();
     }
 }

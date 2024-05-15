@@ -51,54 +51,47 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateTrainer([FromBody] CreateTrainerDTO createTrainerDTO)
+        public async Task<IActionResult> CreateTrainer([FromBody] CreateTrainerDTO createTrainerDTO)
         {
-            try
+           
+            if (createTrainerDTO == null)
             {
-                if (createTrainerDTO == null)
-                {
-                    return BadRequest("La peticion no puede ser nula");
-                }
+                return BadRequest("La solicitud no puede ser nula");
+            }
+            if (_trainerService.GetByEmail(createTrainerDTO.Email) != null)
+            {
+                return Conflict("Este email ya está en uso");
+            }
 
-                Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
-                return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
-            }
-            catch(Exception)
-            {
-                throw new Exception("Ocurrio un error al crear un entrenador");
-            }
+            Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
+            await _trainerService.SaveChangesAsync();
+            return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
+            
         }
 
         [HttpPut("{email}")]
-        public IActionResult UpdateByEmail(string email, [FromBody] TrainerDto updateDto)
+        public async Task<IActionResult> UpdateByEmail(string email, [FromBody] TrainerDto updateDto)
         {
-            try
-            {
-                if (string.IsNullOrEmpty(email))
-                {
-                    return BadRequest("El correo electrónico no puede estar vacío.");
-                }
+            
+             if (string.IsNullOrEmpty(email))
+             {
+                 return BadRequest("El correo electrónico no puede estar vacío.");
+             }
 
-
-                _trainerService.UpdateByEmail(email, updateDto);
-
-                return Ok(updateDto); // La actualización fue exitosa
-            }
-            catch (NotFoundException ex)
+            Trainer trainerEdit = _trainerService.UpdateByEmail(email, updateDto);
+            if (trainerEdit == null)
             {
-                return NotFound(ex.Message); // No se encontró el entrenador
+                return NotFound($"El entrenador con correo electronico ´{email}´ no se encontró");
             }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocurrió un error al actualizar el entrenador: {ex.Message}");
-            }
+            await _trainerService.SaveChangesAsync();
+            return Ok(updateDto); 
+
         }
 
         [HttpDelete("{email}")]
-        public IActionResult DeleteByEmail(string email)
+        public async Task<IActionResult> DeleteByEmail(string email)
         {
-            try
-            {
+            
                 if (string.IsNullOrEmpty(email)) //validacion de email, tengo que agregarlo tmb en la entidad??
                 {
                     return BadRequest("El correo electrónico no puede estar vacío.");
@@ -110,13 +103,10 @@ namespace SistemaGestionGimnasioApi.Controllers
                 {
                     return NotFound($"No se encontró ningún entrenador con el correo electrónico: {email}");
                 }
-
+                await _trainerService.SaveChangesAsync();
                 return Ok(new {Message = "Baja logica realizada correctamente"});
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, $"Ocurrió un error al eliminar el entrenador: {ex.Message}");
-            }
+            
+            
         }
     }
 
