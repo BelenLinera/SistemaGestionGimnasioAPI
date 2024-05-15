@@ -6,7 +6,8 @@ namespace SistemaGestionGimnasioApi.Data.Entities
     public class Activity
     {
         [Key]
-        [Required]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int IdActivity { get; set; }
         public string ActivityName { get; set; }
 
         public string ActivityDescription { get; set; }
