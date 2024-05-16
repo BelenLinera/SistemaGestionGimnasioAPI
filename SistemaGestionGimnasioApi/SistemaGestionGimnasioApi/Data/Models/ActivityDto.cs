@@ -5,11 +5,11 @@ namespace SistemaGestionGimnasioApi.Data.Models
     public class ActivityDto
     {
         [Required]
-        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "El campo debe contener solo letras.")]
+        [RegularExpression("^[a-zA-Z0-9 ]+$", ErrorMessage = "El campo no debe contener símbolos ni caracteres especiales.")]
         public string ActivityName { get; set; }
 
         [Required]
-        [RegularExpression("^[a-zA-Z]+$", ErrorMessage = "El campo debe contener solo letras.")]
+        [RegularExpression("^[a-zA-Z0-9 ]+$", ErrorMessage = "El campo no debe contener símbolos ni caracteres especiales.")]
         public string ActivityDescription { get; set; }
     }
 }

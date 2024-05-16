@@ -8,9 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "SistemaGestionGimnasioApi/1.0.0": {
         "dependencies": {
-          "AutoMapper": "12.0.1",
-          "AutoMapper.Collection.EntityFrameworkCore": "9.0.0",
-          "AutoMapper.Extensions.Microsoft.DependencyInjection": "12.0.1",
+          "AutoMapper": "13.0.1",
           "Microsoft.Data.Sqlite.Core": "6.0.0",
           "Microsoft.EntityFrameworkCore": "6.0.0",
           "Microsoft.EntityFrameworkCore.Design": "6.0.0",
@@ -24,61 +22,14 @@
           "SistemaGestionGimnasioApi.dll": {}
         }
       },
-      "AutoMapper/12.0.1": {
+      "AutoMapper/13.0.1": {
         "dependencies": {
-          "Microsoft.CSharp": "4.7.0"
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.1.0"
-          }
-        }
-      },
-      "AutoMapper.Collection/9.0.0": {
-        "dependencies": {
-          "AutoMapper": "12.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.Collection.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.0.0"
-          }
-        }
-      },
-      "AutoMapper.Collection.EntityFrameworkCore/9.0.0": {
-        "dependencies": {
-          "AutoMapper.Collection": "9.0.0",
-          "AutoMapper.Extensions.ExpressionMapping": "6.0.0",
-          "Microsoft.EntityFrameworkCore": "6.0.0"
-        },
-        "runtime": {
-          "lib/net6.0/AutoMapper.Collection.EntityFrameworkCore.dll": {
-            "assemblyVersion": "9.0.0.0",
-            "fileVersion": "9.0.0.0"
-          }
-        }
-      },
-      "AutoMapper.Extensions.ExpressionMapping/6.0.0": {
-        "dependencies": {
-          "AutoMapper": "12.0.1"
-        },
-        "runtime": {
-          "lib/netstandard2.1/AutoMapper.Extensions.ExpressionMapping.dll": {
-            "assemblyVersion": "6.0.0.0",
-            "fileVersion": "6.0.0.0"
-          }
-        }
-      },
-      "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
-        "dependencies": {
-          "AutoMapper": "12.0.1",
           "Microsoft.Extensions.Options": "6.0.0"
         },
         "runtime": {
-          "lib/netstandard2.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {
-            "assemblyVersion": "12.0.0.0",
-            "fileVersion": "12.0.1.0"
+          "lib/net6.0/AutoMapper.dll": {
+            "assemblyVersion": "13.0.0.0",
+            "fileVersion": "13.0.1.0"
           }
         }
       },
@@ -144,7 +95,6 @@
           }
         }
       },
-      "Microsoft.CSharp/4.7.0": {},
       "Microsoft.Data.Sqlite.Core/6.0.0": {
         "dependencies": {
           "SQLitePCLRaw.core": "2.0.6"
@@ -513,40 +463,12 @@
       "serviceable": false,
       "sha512": ""
     },
-    "AutoMapper/12.0.1": {
+    "AutoMapper/13.0.1": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-hvV62vl6Hp/WfQ24yzo3Co9+OPl8wH8hApwVtgWpiAynVJkUcs7xvehnSftawL8Pe8FrPffBRM3hwzLQqWDNjA==",
-      "path": "automapper/12.0.1",
-      "hashPath": "automapper.12.0.1.nupkg.sha512"
-    },
-    "AutoMapper.Collection/9.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-tFsFFNrf1Z3TBi8XqAlKWemjYeUyaoiNqCPXsCatVZXd3sC/HCF0/tIkld6GBljF2oPZTO+EckyMGZh1jn85zQ==",
-      "path": "automapper.collection/9.0.0",
-      "hashPath": "automapper.collection.9.0.0.nupkg.sha512"
-    },
-    "AutoMapper.Collection.EntityFrameworkCore/9.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-rOb6sNSK63QxfPEgVsrJSONIqVUmpAdsfT+CLgSD8AZ+AOt+e8d9h3dM+eS/bBCdDNZHMvCdcbhEb7nlBN+mjA==",
-      "path": "automapper.collection.entityframeworkcore/9.0.0",
-      "hashPath": "automapper.collection.entityframeworkcore.9.0.0.nupkg.sha512"
-    },
-    "AutoMapper.Extensions.ExpressionMapping/6.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-JUhZ6L8WiGulR+nckAB105uQpk37KVkpUyQC564plhENO/r8KWVL5Ty6zexHrRf3vsoox5h6b4/HgyQlA4PrDg==",
-      "path": "automapper.extensions.expressionmapping/6.0.0",
-      "hashPath": "automapper.extensions.expressionmapping.6.0.0.nupkg.sha512"
-    },
-    "AutoMapper.Extensions.Microsoft.DependencyInjection/12.0.1": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-+g/K+Vpe3gGMKGzjslMOdqNlkikScDjWfVvmWTayrDHaG/n2pPmFBMa+jKX1r/h6BDGFdkyRjAuhFE3ykW+r1g==",
-      "path": "automapper.extensions.microsoft.dependencyinjection/12.0.1",
-      "hashPath": "automapper.extensions.microsoft.dependencyinjection.12.0.1.nupkg.sha512"
+      "sha512": "sha512-/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
+      "path": "automapper/13.0.1",
+      "hashPath": "automapper.13.0.1.nupkg.sha512"
     },
     "BouncyCastle.NetCore/1.8.5": {
       "type": "package",
@@ -589,13 +511,6 @@
       "sha512": "sha512-jCfNP0inx1sGcP3KSbpiDEH3km2e1sVBjMfKo+V92jr1dL4ZYgA1uhRMl1wAtdGZcbObXIikKqtVlgx3j/CW6g==",
       "path": "k4os.hash.xxhash/1.0.6",
       "hashPath": "k4os.hash.xxhash.1.0.6.nupkg.sha512"
-    },
-    "Microsoft.CSharp/4.7.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-pTj+D3uJWyN3My70i2Hqo+OXixq3Os2D1nJ2x92FFo6sk8fYS1m1WLNTs0Dc1uPaViH0YvEEwvzddQ7y4rhXmA==",
-      "path": "microsoft.csharp/4.7.0",
-      "hashPath": "microsoft.csharp.4.7.0.nupkg.sha512"
     },
     "Microsoft.Data.Sqlite.Core/6.0.0": {
       "type": "package",

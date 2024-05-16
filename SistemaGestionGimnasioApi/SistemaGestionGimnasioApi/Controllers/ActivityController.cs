@@ -82,7 +82,7 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
             Activity createdAactivity = _activityService.CreateActivity(activityDto);
             await _activityService.SaveChangesAsync();
-            return CreatedAtRoute(nameof(GetActivityByName), new { email = activityDto.ActivityName }, activityDto);
+            return CreatedAtRoute(nameof(GetActivityByName), new { activityName = activityDto.ActivityName }, activityDto);
 
             //}
             //return Forbid();

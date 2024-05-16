@@ -120,3 +120,4 @@ C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGim
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\SistemaGestionGimnasioApi.pdb
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\SistemaGestionGimnasioApi.genruntimeconfig.cache
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\ref\SistemaGestionGimnasioApi.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.dll
