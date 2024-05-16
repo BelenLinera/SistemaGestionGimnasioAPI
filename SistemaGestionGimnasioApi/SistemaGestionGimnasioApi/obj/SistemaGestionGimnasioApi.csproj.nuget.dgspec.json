@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
+    "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
+    "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "projectUniqueName": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
         "projectName": "SistemaGestionGimnasioApi",
-        "projectPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
-        "packagesPath": "C:\\Users\\josed\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\josed\\OneDrive\\Escritorio\\Carpetas\\Tecnicatura\\LAB-IV\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
+        "projectPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi.csproj",
+        "packagesPath": "C:\\Users\\morac\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\morac\\Desktop\\UltimoCuatri\\SistemaGestionGimnasioAPI\\SistemaGestionGimnasioApi\\SistemaGestionGimnasioApi\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\josed\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\morac\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +44,10 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[13.0.1, )"
+            },
             "Microsoft.Data.Sqlite.Core": {
               "target": "Package",
               "version": "[6.0.0, )"
@@ -72,6 +80,10 @@
               "target": "Package",
               "version": "[6.0.0, )"
             },
+            "SendGrid": {
+              "target": "Package",
+              "version": "[9.29.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
@@ -96,7 +108,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }
