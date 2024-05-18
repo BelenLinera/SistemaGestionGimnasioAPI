@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using SistemaGestionGimnasioApi.Data.Entities;
@@ -7,7 +6,6 @@ using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
 using System.Security.Claims;
 using System.Text;
-using SistemaGestionGimnasioApi.Services.Implementations;
 
 namespace SistemaGestionGimnasioApi.Controllers
 {

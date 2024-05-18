@@ -57,7 +57,16 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             _context.Users.Update(UserToRecover);
             return token;
         }
+        public async Task<User> ChangePassword(string token, string newPassword) 
+        {
+            string passwordHash = _paswordHasherService.Hash(newPassword);
+            User user = _context.Users.FirstOrDefault(u => u.TokenRecover == token);
+            if (user == null) return null;
+            user.Password = passwordHash;
+            user.TokenRecover = null;
+            return user;
 
+        }
         public async Task<bool> SaveChangesAsync()
         {
             return (await _context.SaveChangesAsync() > 0);
