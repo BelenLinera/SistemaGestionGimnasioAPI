@@ -1,6 +1,6 @@
 ﻿namespace SistemaGestionGimnasioApi.Services.Interfaces
 {
-    public interface IPaswordService
+    public interface IPasswordService
     {
         string Hash(string password);
         bool Verify(string passwordHash, string inputPassword);

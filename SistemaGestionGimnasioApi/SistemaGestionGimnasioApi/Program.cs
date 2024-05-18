@@ -61,7 +61,8 @@ builder.Services.AddAuthentication("Bearer")
 );
 builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<IPaswordHasherService,PasswordHasherService>();
+builder.Services.AddScoped<IPasswordService,PasswordService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 //inyeccion de dependencias
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAdminService, AdminService>();

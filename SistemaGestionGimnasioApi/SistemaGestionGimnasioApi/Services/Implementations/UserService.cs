@@ -8,13 +8,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class UserService : IUserService
     {
         private readonly SystemContext _context;
-        private readonly IPaswordHasherService _paswordHasherService;
-        public UserService(SystemContext context, IPaswordHasherService paswordHasherService)
+        private readonly IPasswordService _paswordHasherService;
+        public UserService(SystemContext context, IPasswordService paswordHasherService)
         {
             _context = context;
             _paswordHasherService = paswordHasherService;
         }
-        public BaseResponse ValidateUser(string email, string password)
+        public async Task<BaseResponse> ValidateUser(string email, string password)
         {
             BaseResponse response = new BaseResponse();
             User? userForLogin = _context.Users.SingleOrDefault(u => u.Email == email);
@@ -39,7 +39,7 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             return response;
 
         }
-        public User GetUserByEmail(string email)
+        public async Task<User> GetUserByEmail(string email)
         {
             try
             {
@@ -49,6 +49,18 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             {
                 throw new Exception($"Error al obtener el administrador con Email {email}: {ex.Message}", ex);
             }
+        }
+        public async Task<string> GeneratePasswordResetToken(User UserToRecover)
+        {
+            string token = Guid.NewGuid().ToString().Substring(0, 8);
+            UserToRecover.TokenRecover = token;
+            _context.Users.Update(UserToRecover);
+            return token;
+        }
+
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _context.SaveChangesAsync() > 0);
         }
 
     }
