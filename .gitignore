@@ -10,6 +10,8 @@ CHECKLIST.md
 *.userosscache
 *.sln.docstates
 .vs/
+bin/
+obj/
 
 appsettings.json
 launchSettings.json
