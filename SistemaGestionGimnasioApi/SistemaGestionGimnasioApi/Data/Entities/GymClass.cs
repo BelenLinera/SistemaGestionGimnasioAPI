@@ -12,7 +12,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
 
         [ForeignKey("IdTrainerActivity")]
         public int IdTrainerActivity { get; set; }
-        public TrainerActivity TrainerActivity { get; set; }
+        public TrainerActivity? TrainerActivity { get; set; }
 
   
         public DateTime DateTimeClass { get; set; }

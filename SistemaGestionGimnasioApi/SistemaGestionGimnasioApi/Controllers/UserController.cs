@@ -19,7 +19,14 @@ namespace SistemaGestionGimnasioApi.Controllers
             _userService = userService;
             _emailService = emailService;
         }
-        [HttpPost]
+        [HttpPost("validateToken")]
+        public async Task<IActionResult> ValidateToken([FromBody][Required(ErrorMessage = "Introduzca un token por favor")] string tokenRecover) 
+        {
+            string tokenValidated =await _userService.ValidateToken(tokenRecover);
+            if (tokenValidated== null) return BadRequest("Token invalido o inexistente");
+            return Ok(tokenValidated);
+        }
+        [HttpPost("createToken")]
         public async Task<IActionResult> RecoverPassword([Required(ErrorMessage = "El email es obligatorio"), EmailAddress(ErrorMessage = "El email no tiene un formato válido")] string email)
         {
             try

@@ -2,6 +2,7 @@
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Security.Policy;
 
 namespace SistemaGestionGimnasioApi.Services.Implementations
 {
@@ -56,6 +57,11 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             UserToRecover.TokenRecover = token;
             _context.Users.Update(UserToRecover);
             return token;
+        }
+        public async Task<string?> ValidateToken(string token)
+        {
+            User user = _context.Users.FirstOrDefault(u => u.TokenRecover == token);
+            return user?.TokenRecover;
         }
         public async Task<User> ChangePassword(string token, string newPassword) 
         {

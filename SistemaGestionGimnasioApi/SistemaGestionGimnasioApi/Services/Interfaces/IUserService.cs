@@ -9,6 +9,8 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
         Task<User> GetUserByEmail(string email);
 
         Task<string> GeneratePasswordResetToken(User userToRecover);
+
+        Task<string> ValidateToken(string token);
         Task<User> ChangePassword(string token, string newPassword);
 
         Task<bool> SaveChangesAsync();
