@@ -14,6 +14,6 @@ namespace SistemaGestionGimnasioApi.Data.Models
 
         [Required(ErrorMessage = "Este campo no puede quedar vacio")]
         public string Password { get; set; }
-        public List<int> Activitys { get; set; } 
+        public List<int> Activities { get; set; } 
     }
 }
