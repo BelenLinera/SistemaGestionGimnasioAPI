@@ -58,8 +58,6 @@ C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGim
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\obj\Debug\net6.0\ref\SistemaGestionGimnasioApi.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\MySqlConnector.dll
 C:\Users\josed\OneDrive\Escritorio\Carpetas\Tecnicatura\LAB-IV\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Pomelo.EntityFrameworkCore.MySql.dll
-C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\appsettings.Development.json
-C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\appsettings.json
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\SistemaGestionGimnasioApi.exe
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\SistemaGestionGimnasioApi.deps.json
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\SistemaGestionGimnasioApi.runtimeconfig.json
@@ -130,3 +128,7 @@ C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGim
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Collection.EntityFrameworkCore.dll
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.ExpressionMapping.dll
 C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\SendGrid.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\StarkbankEcdsa.dll
+C:\1Programacion\Quinto cuatrimestre\SistemaGestionGimnasioAPI\SistemaGestionGimnasioApi\SistemaGestionGimnasioApi\bin\Debug\net6.0\appsettings.json

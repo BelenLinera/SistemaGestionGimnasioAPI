@@ -89,6 +89,7 @@ namespace SistemaGestionGimnasioApi.DBContext
                     IdGymClass = -4,
                     IdTrainerActivity= -6,
                     DateTimeClass = new DateTime(2024, 4, 20, 16, 0, 0),
+                    Days = Data.Enum.DaysEnum.Lunes,
                     Capacity = 20 
                 }
                 );
