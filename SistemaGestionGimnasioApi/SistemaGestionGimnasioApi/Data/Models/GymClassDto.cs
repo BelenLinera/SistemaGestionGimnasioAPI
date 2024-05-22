@@ -9,7 +9,9 @@ namespace SistemaGestionGimnasioApi.Data.Models
         public int IdTrainerActivity { get; set; }
 
         [Required]
-        public DateTime DateTimeClass { get; set; }
+        [RegularExpression("^([0-9]|[01]\\d|2[0-3]):([00]\\d)$", ErrorMessage = "La hora debe estar en formato 'hh:mm'")]
+
+        public string TimeClass { get; set; }
         
         public DaysEnum  Days { get; set; }
 

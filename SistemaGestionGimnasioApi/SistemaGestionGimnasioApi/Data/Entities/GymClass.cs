@@ -15,7 +15,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         public int ? IdTrainerActivity { get; set; }
         public TrainerActivity ? TrainerActivity { get; set; }
 
-        public DateTime DateTimeClass { get; set; }
+        public string TimeClass { get; set; }
 
         public DaysEnum Days { get; set; }
         public int Capacity { get; set; }
