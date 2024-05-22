@@ -5,6 +5,7 @@ using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Diagnostics;
 
 namespace SistemaGestionGimnasioApi.Services.Implementations
 {
@@ -23,12 +24,16 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         {
             try
             {
-                if (string.IsNullOrEmpty(email)) //usar try-catch
+                if (string.IsNullOrEmpty(email))
                 {
                     throw new ArgumentException("El correo electrónico no puede estar vacío.");
                 }
 
-                return _context.Trainers.FirstOrDefault(t => t.Email == email);
+                return _context.Trainers
+                    .Include(a => a.TrainerActivities)
+                    .ThenInclude(ta => ta.Activity)
+                    .FirstOrDefault(t => t.Email == email);
+                    
             }
             catch (Exception ex)
             {
@@ -38,13 +43,32 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
         public List<Trainer> GetAllTrainers() 
         {
-            return _context.Trainers.Where(t => t.IsDeleted == false).ToList();
+            return _context.Trainers
+                .Where(t => t.IsDeleted == false)
+                .Include(a => a.TrainerActivities)
+                .ThenInclude(ta => ta.Activity)
+                .ToList();
         }
 
         public Trainer CreateTrainer(CreateTrainerDTO createTrainerDTO)
         {
-                
+
+            List<int> acitivitiesId = createTrainerDTO.Activitys.Select(id => id).ToList();
+
+            List<TrainerActivity> trainerActivities = new List<TrainerActivity>();
+            foreach(var activity in acitivitiesId) 
+            { 
+                TrainerActivity trainerActivity = new TrainerActivity
+                {
+                    TrainerEmail = createTrainerDTO.Email,
+                    IdActivity = activity
+                };
+                _context.TrainerActivities.Add(trainerActivity);
+                trainerActivities.Add(trainerActivity);
+            }
+
             Trainer? newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
+            newTrainer.TrainerActivities = trainerActivities;
 
             _context.Trainers.Add(newTrainer);
 
