@@ -26,11 +26,15 @@ builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connect
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //inyeccion de dependencias
 //builder.Services.AddScoped<IUserService, UserService>();
+//builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-//builder.Services.AddScoped<IActivityService, ActivityService>();
-//builder.Services.AddScoped<IGymClassService, GymClassService>();
+
+
 builder.Services.AddScoped<IGymClassService, GymClassService>();
-//builder.Services.AddScoped<IClientService, ClientService>();
+
+
+builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
 //builder.Services.AddScoped<IReserveService, ReserveService>();
 
