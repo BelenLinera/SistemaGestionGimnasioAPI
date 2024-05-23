@@ -28,12 +28,19 @@ namespace SistemaGestionGimnasioApi.Controllers
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
             //if (role == "Admin")
             //{
+            try
+            {
                 User user = _adminService.GetAdminByEmail(email);
                 if (user == null)
                 {
                     return NotFound();
                 }
                 return Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener el administrador por correo electrónico: " + ex.Message);
+            }
 
             //}
             //return Forbid();
@@ -46,8 +53,15 @@ namespace SistemaGestionGimnasioApi.Controllers
             //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
             //if (role == "Admin")
             //{
+            try
+            {
                 List<Admin> admins = _adminService.GetAllAdmins();
                 return Ok(admins);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener la lista de administradores: " + ex.Message);
+            }
             //}
             //return Forbid(); 
         }
