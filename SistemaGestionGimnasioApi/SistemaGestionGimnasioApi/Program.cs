@@ -65,10 +65,10 @@ builder.Services.AddScoped<IPasswordService,PasswordService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 //inyeccion de dependencias
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-//builder.Services.AddScoped<IActivityService, ActivityService>();
 //builder.Services.AddScoped<IClassService, ClassService>();
-//builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
 //builder.Services.AddScoped<IReserveService, ReserveService>();
 
