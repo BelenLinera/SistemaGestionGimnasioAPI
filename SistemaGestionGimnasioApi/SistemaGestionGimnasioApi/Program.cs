@@ -26,13 +26,9 @@ builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connect
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 //inyeccion de dependencias
 //builder.Services.AddScoped<IUserService, UserService>();
-<<<<<<< HEAD
 //builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
-=======
 builder.Services.AddScoped<IAdminService, AdminService>();
-//builder.Services.AddScoped<IActivityService, ActivityService>();
->>>>>>> ef3b883d16b80b4ad02393c1ab1d73ad3d819f3c
 //builder.Services.AddScoped<IClassService, ClassService>();
 //builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
