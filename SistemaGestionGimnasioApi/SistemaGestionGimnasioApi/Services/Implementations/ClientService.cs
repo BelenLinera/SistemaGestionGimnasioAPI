@@ -9,11 +9,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class ClientService : IClientService
     {
         private readonly SystemContext _context;
+        private readonly IPasswordService _paswordHasherService;
         private readonly IMapper _mapper;
-        public ClientService(SystemContext context, IMapper mapper)
+        public ClientService(SystemContext context, IMapper mapper, IPasswordService paswordHasherService)
         {
             _context = context;
             _mapper = mapper;
+            _paswordHasherService = paswordHasherService;
         }
         public Client GetClientByEmail(string email)
         {
@@ -33,6 +35,8 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
         public Client CreateClient(UserDto userDto)
         {
+            string passwordHash = _paswordHasherService.Hash(userDto.Password);
+            userDto.Password = passwordHash;
             Client? userEntity = _mapper.Map<Client>(userDto);
             _context.Clients.Add(userEntity);
             return userEntity;

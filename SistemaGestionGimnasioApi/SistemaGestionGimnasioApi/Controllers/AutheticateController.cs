@@ -58,38 +58,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 return Ok(tokenToReturn);
 
             }
-            return BadRequest();
-        }
-
-        [HttpPost("recoverPassword")]
-        public async Task<IActionResult> RecoverPassword(string email)
-        {
-            try
-            {
-                User UserToRecover = await _userService.GetUserByEmail(email);
-                if (UserToRecover == null) return NotFound("El usuario con ese Email no existe");
-
-                string tokenToSend = await _userService.GeneratePasswordResetToken(UserToRecover);
-                string htmlContent = $@"
-            <html>
-            <body>
-                <h1>Recuperación de Contraseña</h1>
-                <p>Hemos recibido una solicitud para restablecer tu contraseña. Utiliza el siguiente token para proceder:</p>
-                <p>Token: {tokenToSend}</p>
-                <p>Si no has solicitado esta acción, puedes ignorar este mensaje.</p>
-            </body>
-            </html>";
-
-                int response = await _emailService.SendEmailAsync(email, "Recuperacion de contraseña", htmlContent);
-                await _userService.SaveChangesAsync();
-                if (response == 200) return Ok("Token enviado");
-                return BadRequest($"Fallo la generacion del token{response}");
-            }
-            catch
-            {
-                return BadRequest();
-            }
-               
+            return BadRequest("Contraseña o email invalido");      
         }
     }
 }
