@@ -129,15 +129,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
                 if (trainerToDelete == null)
                 {
-                    return false;       //no se encuentra el entrenador entonces no hace cambios
+                    return false;
                 }
 
-                //cambiamos el estado de la propiedad a true
+                
                 trainerToDelete.IsDeleted = true;
-
+                _context.TrainerActivities.RemoveRange(_context.TrainerActivities.Where(ta => ta.TrainerEmail == trainerToDelete.Email));
                 _context.Trainers.Update(trainerToDelete);
-                _context.SaveChanges();
-
                 return true;
             }
             catch (Exception)
