@@ -16,7 +16,7 @@ builder.Services.AddControllers();
 // Evita bucles relacionados con las propiedades de navegaci�n de las entidades.
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.Preserve;
+    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
 builder.Services.AddSwaggerGen(setupAction =>
 {

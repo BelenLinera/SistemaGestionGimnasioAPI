@@ -8,7 +8,7 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
         Trainer GetByEmail(string email);
         List<Trainer> GetAllTrainers();
         Trainer CreateTrainer(CreateTrainerDTO createTrainerDTO);
-        Trainer UpdateByEmail(string email, TrainerDto updateDto);
+        Trainer UpdateByEmail(string email, EditTrainerDto updateDto);
         bool DeleteByEmail(string email);
         Task<bool> SaveChangesAsync();
     }

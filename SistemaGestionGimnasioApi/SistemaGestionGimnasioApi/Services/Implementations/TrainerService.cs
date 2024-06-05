@@ -5,6 +5,7 @@ using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Diagnostics;
 
 namespace SistemaGestionGimnasioApi.Services.Implementations
 {
@@ -25,12 +26,16 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         {
             try
             {
-                if (string.IsNullOrEmpty(email)) //usar try-catch
+                if (string.IsNullOrEmpty(email))
                 {
                     throw new ArgumentException("El correo electrónico no puede estar vacío.");
                 }
 
-                return _context.Trainers.FirstOrDefault(t => t.Email == email);
+                return _context.Trainers
+                    .Include(a => a.TrainerActivities)
+                    .ThenInclude(ta => ta.Activity)
+                    .FirstOrDefault(t => t.Email == email);
+                    
             }
             catch (Exception ex)
             {
@@ -40,38 +45,85 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
         public List<Trainer> GetAllTrainers() 
         {
-            return _context.Trainers.Where(t => t.IsDeleted == false).ToList();
+            return _context.Trainers
+                .Where(t => t.IsDeleted == false)
+                .Include(a => a.TrainerActivities)
+                .ThenInclude(ta => ta.Activity)
+                .ToList();
         }
 
-        public Trainer CreateTrainer(CreateTrainerDTO createTrainerDTO)
+        public Trainer? CreateTrainer(CreateTrainerDTO createTrainerDTO)
         {
-            string passwordHash = _paswordHasherService.Hash(createTrainerDTO.Password);
-            createTrainerDTO.Password = passwordHash;
-            Trainer? newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
-            _context.Trainers.Add(newTrainer);
-            return newTrainer;
-            
-        }
+            List<int> activityIds = createTrainerDTO.Activities.Select(id => id).ToList();
 
-        public Trainer UpdateByEmail(string email, TrainerDto updateDto)
-        {
-            
-            Trainer existingTrainer =  _context.Trainers.FirstOrDefault(t => t.Email == email);
 
-            if (existingTrainer == null)
+            foreach (var activityId in activityIds)
             {
-                throw new NotFoundException($"No se encontró ningún entrenador con el correo electrónico: {email}");
+                if (!_context.Activities.Any(a => a.IdActivity == activityId))
+                {
+                    
+                    return null;
+                }
             }
 
-            // Actualizar propiedades del entrenador existente
-            Trainer trainerEditing = _mapper.Map(updateDto, existingTrainer);
+            List<TrainerActivity> trainerActivities = new List<TrainerActivity>();
+            foreach (var activityId in activityIds)
+            {
+                TrainerActivity trainerActivity = new TrainerActivity
+                {
+                    TrainerEmail = createTrainerDTO.Email,
+                    IdActivity = activityId
+                };
+                _context.TrainerActivities.Add(trainerActivity);
+                trainerActivities.Add(trainerActivity);
+            }
+            string passwordHash = _paswordHasherService.Hash(createTrainerDTO.Password);
+            createTrainerDTO.Password = passwordHash;
+            Trainer newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
+            newTrainer.TrainerActivities = trainerActivities;
 
-            _context.Trainers.Update(trainerEditing);
-            return trainerEditing;
-           
-            
+            _context.Trainers.Add(newTrainer);
+            return newTrainer;
         }
 
+
+        public Trainer UpdateByEmail(string email, EditTrainerDto trainerDto)
+        {
+            Trainer existingTrainer = _context.Trainers.Include(t => t.TrainerActivities).FirstOrDefault(t => t.Email == email);
+            if (existingTrainer == null) return null;
+            foreach (var activityId in trainerDto.Activities)
+            {
+                if (!_context.Activities.Any(a => a.IdActivity == activityId))
+                {
+                    existingTrainer.TrainerActivities = null;
+                    return  existingTrainer ;
+                }
+            }
+
+            // Mantener las TrainerActivities existentes si sus Ids están presentes en el DTO de actualización
+            var newActivityIds = trainerDto.Activities;
+            existingTrainer.TrainerActivities.RemoveAll(ta => !newActivityIds.Contains(ta.IdActivity));
+
+            // Agregar nuevas TrainerActivities que no estén en las existentes
+            foreach (var activityId in newActivityIds)
+            {
+                if (!existingTrainer.TrainerActivities.Any(ta => ta.IdActivity == activityId))
+                {
+                    TrainerActivity trainerActivity = new TrainerActivity
+                    {
+                        TrainerEmail = email,
+                        IdActivity = activityId
+                    };
+                    existingTrainer.TrainerActivities.Add(trainerActivity);
+                }
+            }
+
+            // Actualizar el resto de los datos del entrenador
+            Trainer trainerUpdated =_mapper.Map(trainerDto, existingTrainer);
+
+            _context.Trainers.Update(existingTrainer);
+            return existingTrainer;
+        }
         public bool DeleteByEmail(string email)
         {
             try
@@ -80,15 +132,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
                 if (trainerToDelete == null)
                 {
-                    return false;       //no se encuentra el entrenador entonces no hace cambios
+                    return false;
                 }
 
-                //cambiamos el estado de la propiedad a true
+                
                 trainerToDelete.IsDeleted = true;
-
+                _context.TrainerActivities.RemoveRange(_context.TrainerActivities.Where(ta => ta.TrainerEmail == trainerToDelete.Email));
                 _context.Trainers.Update(trainerToDelete);
-                _context.SaveChanges();
-
                 return true;
             }
             catch (Exception)
