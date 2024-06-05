@@ -12,11 +12,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class TrainerService : ITrainerService
     {
         private readonly SystemContext _context;
+        private readonly IPasswordService _paswordHasherService;
         private readonly IMapper _mapper;
 
-        public TrainerService (SystemContext context, IMapper mapper)
+        public TrainerService (SystemContext context, IMapper mapper, IPasswordService paswordHasherService)
         {
             _context = context;
+            _paswordHasherService = paswordHasherService;
             _mapper = mapper;
         }
 
@@ -75,12 +77,12 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
                 _context.TrainerActivities.Add(trainerActivity);
                 trainerActivities.Add(trainerActivity);
             }
-
+            string passwordHash = _paswordHasherService.Hash(createTrainerDTO.Password);
+            createTrainerDTO.Password = passwordHash;
             Trainer newTrainer = _mapper.Map<Trainer>(createTrainerDTO);
             newTrainer.TrainerActivities = trainerActivities;
 
             _context.Trainers.Add(newTrainer);
-
             return newTrainer;
         }
 

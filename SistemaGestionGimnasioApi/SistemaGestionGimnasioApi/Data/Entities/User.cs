@@ -17,5 +17,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         public string Password { get; set; }
         public string UserType { get; set; }
         public bool IsDeleted { get; set; } = false;
+
+        public string? TokenRecover { get; set; } = null;
     }
 }
