@@ -88,6 +88,7 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         public Trainer UpdateByEmail(string email, EditTrainerDto trainerDto)
         {
             Trainer existingTrainer = _context.Trainers.Include(t => t.TrainerActivities).FirstOrDefault(t => t.Email == email);
+            if (existingTrainer == null) return null;
             foreach (var activityId in trainerDto.Activities)
             {
                 if (!_context.Activities.Any(a => a.IdActivity == activityId))
