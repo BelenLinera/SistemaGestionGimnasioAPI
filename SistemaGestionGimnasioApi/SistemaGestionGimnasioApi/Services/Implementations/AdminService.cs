@@ -9,11 +9,13 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
     public class AdminService : IAdminService
     {
         private readonly SystemContext _context;
+        private readonly IPasswordService _paswordHasherService;
         private readonly IMapper _mapper;
-        public AdminService(SystemContext context, IMapper mapper)
+        public AdminService(SystemContext context, IMapper mapper, IPasswordService paswordHasherService)
         {
             _context = context;
             _mapper = mapper;
+            _paswordHasherService = paswordHasherService;
         }
         public User GetAdminByEmail(string email)
         {
@@ -33,6 +35,8 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
 
         public Admin CreateAdmin(UserDto userDto)
         {
+            string passwordHash = _paswordHasherService.Hash(userDto.Password);
+            userDto.Password = passwordHash;
             Admin? userEntity = _mapper.Map<Admin>(userDto);
             _context.Admins.Add(userEntity);
             return userEntity;
