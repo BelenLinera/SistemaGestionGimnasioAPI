@@ -20,6 +20,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         public DaysEnum Days { get; set; }
         public int Capacity { get; set; }
 
-
+        [NotMapped]
+        public string DayName => Days.ToString();
     }
 }
