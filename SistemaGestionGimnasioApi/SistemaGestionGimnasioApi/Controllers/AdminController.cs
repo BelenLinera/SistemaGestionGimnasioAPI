@@ -14,7 +14,6 @@ namespace SistemaGestionGimnasioApi.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
-        private readonly IUserService _userService;
 
         public AdminController(IAdminService adminService)
         {

@@ -14,7 +14,7 @@ namespace SistemaGestionGimnasioApi.Data.Profiles
                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName))
                .ForMember(dest => dest.Password, opt => opt.MapFrom(src => src.Password));
 
-            CreateMap<TrainerDto, Trainer>()
+            CreateMap<EditTrainerDto, Trainer>()
                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                .ForMember(dest => dest.LastName, opt => opt.MapFrom(src => src.LastName));
         }

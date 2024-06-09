@@ -64,13 +64,14 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
 
             Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
+            if (createdTrainer == null) return NotFound("Alguna de las actividades no existe");
             await _trainerService.SaveChangesAsync();
             return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
             
         }
 
         [HttpPut("{email}")]
-        public async Task<IActionResult> UpdateByEmail(string email, [FromBody] TrainerDto updateDto)
+        public async Task<IActionResult> UpdateByEmail( EditTrainerDto trainerupdated, string email)
         {
             
              if (string.IsNullOrEmpty(email))
@@ -78,13 +79,11 @@ namespace SistemaGestionGimnasioApi.Controllers
                  return BadRequest("El correo electrónico no puede estar vacío.");
              }
 
-            Trainer trainerEdit = _trainerService.UpdateByEmail(email, updateDto);
-            if (trainerEdit == null)
-            {
-                return NotFound($"El entrenador con correo electronico ´{email}´ no se encontró");
-            }
+            Trainer trainerEdited = _trainerService.UpdateByEmail(email, trainerupdated);
+            if (trainerEdited == null)  return NotFound($"El entrenador con correo electronico ´{email}´ no se encontró");
+            if (trainerEdited.TrainerActivities == null) return NotFound("Alguna de las actividades no existe");
             await _trainerService.SaveChangesAsync();
-            return Ok(updateDto); 
+            return Ok(trainerEdited); 
 
         }
 
@@ -92,7 +91,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         public async Task<IActionResult> DeleteByEmail(string email)
         {
             
-                if (string.IsNullOrEmpty(email)) //validacion de email, tengo que agregarlo tmb en la entidad??
+                if (string.IsNullOrEmpty(email)) 
                 {
                     return BadRequest("El correo electrónico no puede estar vacío.");
                 }
