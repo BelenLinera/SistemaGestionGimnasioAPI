@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SistemaGestionGimnasioApi.Controllers
 {
@@ -27,7 +28,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 Reserve reserve = _reserveService.GetReserveById(id);
                 if (reserve == null)
                 {
-                    return NotFound();
+                    return NotFound("Reserva no encontrada");
 
                 }
                 return Ok(reserve);
@@ -59,29 +60,56 @@ namespace SistemaGestionGimnasioApi.Controllers
             //}
             //return Forbid(); 
         }
-
-        [HttpPost]
-        //[Authorize]
-        public async Task<IActionResult> CreateReserve([FromBody] ReserveDto reserveDto)
+        [HttpGet("/my-reserves")]
+        [Authorize]
+        public IActionResult GetReservesByUser()
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
-            if (reserveDto == null)
+            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            if (role == "Client")
             {
-                return BadRequest("La solicitud no puede ser nula");
-            }
             try
             {
+                    string email = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
 
-                Reserve createdReserve = _reserveService.CreateReserve(reserveDto);
-                await _reserveService.SaveChangesAsync();
-                return CreatedAtRoute(nameof(GetReserveById), new { id = createdReserve.Id }, reserveDto);
-
+                    List<Reserve> reserves = _reserveService.GetReservesByUser(email);
+                return Ok(reserves);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, "Error al crear la reserva: " + ex.Message);
+                return StatusCode(500, "Error al obtener la lista de reservas: " + ex.Message);
+            }
+            }
+            return Forbid("Usuario no autorizado a consultar"); 
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<IActionResult> CreateReserve(ReserveDto reserveDto)
+        {
+            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+            if (role == "Client")
+            {
+                if (reserveDto == null)
+                {
+                    return BadRequest("La solicitud no puede ser nula");
+                }
+                try
+                {
+                    string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+                    Reserve createdReserve = _reserveService.CreateReserve(reserveDto, emailClient);
+                    await _reserveService.SaveChangesAsync();
+                    return CreatedAtRoute(nameof(GetReserveById), new { id = createdReserve.Id }, reserveDto);
+
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "Error al crear la reserva: " + ex.Message);
+                }
+            }
+            else
+            {
+
+                return StatusCode(403, "Usuario no autorizado");
             }
         }
         [HttpDelete("{id}")]

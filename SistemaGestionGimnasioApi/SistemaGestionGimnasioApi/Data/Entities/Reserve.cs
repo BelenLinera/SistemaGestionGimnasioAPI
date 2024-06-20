@@ -17,7 +17,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
         public string ClientEmail { get; set; }
         public Client Client { get; set; }
 
-        public bool ClientAttended { get; set; }
+        public bool ClientAttended { get; set; } = false;
         public DateTime DateClass { get; set; }
     }
 }

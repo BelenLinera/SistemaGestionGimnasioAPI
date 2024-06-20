@@ -5,9 +5,10 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
 {
     public interface IReserveService
     {
-        public Reserve GetReserveById(int id);
+        Reserve GetReserveById(int id);
         List<Reserve> GetAllReserves();
-        Reserve CreateReserve(ReserveDto reserveDto);
+        List<Reserve> GetReservesByUser(string emailUser);
+        Reserve CreateReserve(ReserveDto reserveDto, string emailClient);
 
         void DeleteReserve(Reserve reserveToDelete);
         Task<bool> SaveChangesAsync();

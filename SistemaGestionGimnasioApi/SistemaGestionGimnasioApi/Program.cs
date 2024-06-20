@@ -8,19 +8,16 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
 // Add services to the container.
-
-builder.Services.AddControllers();
-
-// Evita bucles relacionados con las propiedades de navegaci�n de las entidades.
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
-    options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    // Evita bucles relacionados con las propiedades de navegación de las entidades.
+    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
 });
+
 builder.Services.AddSwaggerGen(setupAction =>
 {
-    setupAction.AddSecurityDefinition("SistemaGimnasioApiBearerAuth", new OpenApiSecurityScheme()
+    setupAction.AddSecurityDefinition("SistemaGimnasioApiBearerAuth", new OpenApiSecurityScheme
     {
         Type = SecuritySchemeType.Http,
         Scheme = "Bearer",
@@ -30,53 +27,54 @@ builder.Services.AddSwaggerGen(setupAction =>
     setupAction.AddSecurityRequirement(new OpenApiSecurityRequirement
     {
         {
-        new OpenApiSecurityScheme
-        {
-            Reference = new OpenApiReference
+            new OpenApiSecurityScheme
             {
-                Type = ReferenceType.SecurityScheme,
-                Id = "SistemaGestionGimnasioApiBearerAuth" }
-            }, new List<string>() }
+                Reference = new OpenApiReference
+                {
+                    Type = ReferenceType.SecurityScheme,
+                    Id = "SistemaGimnasioApiBearerAuth"
+                }
+            },
+            new List<string>()
+        }
     });
 });
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
-//configuracion de la base de datos
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(); 
+
+// Configuración de la base de datos
 var connectionString = builder.Configuration.GetConnectionString("SystemGymDBConnectionString");
+builder.Services.AddDbContext<SystemContext>(options =>
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+// Configuración de la autenticación JWT
 builder.Services.AddAuthentication("Bearer")
     .AddJwtBearer(options =>
     {
-        options.TokenValidationParameters = new()
+        options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
         {
             ValidateIssuer = true,
             ValidateAudience = true,
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Authentication:Issuer"],
             ValidAudience = builder.Configuration["Authentication:Audience"],
-            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
+            IssuerSigningKey = new Microsoft.IdentityModel.Tokens.SymmetricSecurityKey(
+                Encoding.ASCII.GetBytes(builder.Configuration["Authentication:SecretForKey"]))
         };
-    }
-);
-builder.Services.AddDbContext<SystemContext>(options => options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+    });
+
+// Inyección de dependencias
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-builder.Services.AddScoped<IPasswordService,PasswordService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
-//inyeccion de dependencias
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IActivityService, ActivityService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
-
-
 builder.Services.AddScoped<IGymClassService, GymClassService>();
-
-
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
 builder.Services.AddScoped<IReserveService, ReserveService>();
-
-
 
 var app = builder.Build();
 
@@ -96,6 +94,7 @@ app.UseCors(options =>
            .AllowAnyMethod();
 });
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

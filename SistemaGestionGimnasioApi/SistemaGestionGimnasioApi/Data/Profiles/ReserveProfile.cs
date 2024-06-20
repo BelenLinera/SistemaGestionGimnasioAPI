@@ -10,8 +10,6 @@ namespace SistemaGestionGimnasioApi.Data.Profiles
         {
             CreateMap<ReserveDto, Reserve>()
                 .ForMember(dest => dest.IdGymClass, opt => opt.MapFrom(src => src.IdGymClass))
-                .ForMember(dest => dest.ClientEmail, opt => opt.MapFrom(src => src.ClientEmail))
-                .ForMember(dest => dest.ClientAttended, opt => opt.MapFrom(src => src.ClientAttended))
                 .ForMember(dest => dest.DateClass, opt => opt.MapFrom(src => src.DateClass));
         }
     }

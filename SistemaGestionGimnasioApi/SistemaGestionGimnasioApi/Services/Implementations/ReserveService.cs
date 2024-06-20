@@ -30,9 +30,15 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         {
             return _context.Reserves.ToList();
         }
-        public Reserve CreateReserve(ReserveDto reserveDto)
+
+        public List<Reserve> GetReservesByUser(string email)
+        {
+            return _context.Reserves.Where(r => r.ClientEmail == email).ToList();
+        }
+        public Reserve CreateReserve(ReserveDto reserveDto, string emailClient)
         {
             Reserve? reserveEntity = _mapper.Map<Reserve>(reserveDto);
+            reserveEntity.ClientEmail = emailClient;
             _context.Reserves.Add(reserveEntity);
             return reserveEntity;
         }
