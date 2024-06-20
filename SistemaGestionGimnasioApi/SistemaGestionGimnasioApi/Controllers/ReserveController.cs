@@ -12,10 +12,13 @@ namespace SistemaGestionGimnasioApi.Controllers
     public class ReserveController : ControllerBase
     {
         private readonly IReserveService _reserveService;
-        public ReserveController(IReserveService reserveService)
+        private readonly IClientService _clientService;
+        public ReserveController(IReserveService reserveService, IClientService clientService)
         {
             _reserveService = reserveService;
+            _clientService = clientService;
         }
+
         [HttpGet("{id}", Name = nameof(GetReserveById))]
         //[Authorize]
         public IActionResult GetReserveById(int id)
@@ -87,7 +90,9 @@ namespace SistemaGestionGimnasioApi.Controllers
         public async Task<IActionResult> CreateReserve(ReserveDto reserveDto)
         {
             string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            if (role == "Client")
+            string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            Client? client = _clientService.GetClientByEmail(emailClient);
+            if (role == "Client" && client.AutorizationToReserve == true)
             {
                 if (reserveDto == null)
                 {
@@ -95,7 +100,6 @@ namespace SistemaGestionGimnasioApi.Controllers
                 }
                 try
                 {
-                    string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
                     Reserve createdReserve = _reserveService.CreateReserve(reserveDto, emailClient);
                     await _reserveService.SaveChangesAsync();
                     return CreatedAtRoute(nameof(GetReserveById), new { id = createdReserve.Id }, reserveDto);
@@ -113,21 +117,26 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> DeleteReserve(int id)
         {
             //string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
             //if (role == "Admin")
             //{
-            var reserveToDelete = _reserveService.GetReserveById(id);
+            Reserve? reserveToDelete = _reserveService.GetReserveById(id);
+            string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             if (reserveToDelete == null)
             {
                 return NotFound("Reserva inexistente");
             }
-            _reserveService.DeleteReserve((Reserve)reserveToDelete);
-            await _reserveService.SaveChangesAsync();
-            return NoContent();
-            //}
-            //return Forbid();
+            if (reserveToDelete.ClientEmail == emailClient)
+            {
+                _reserveService.DeleteReserve((Reserve)reserveToDelete);
+                await _reserveService.SaveChangesAsync();
+                return NoContent();
+            }
+
+            return Forbid();
         }
 
     }
