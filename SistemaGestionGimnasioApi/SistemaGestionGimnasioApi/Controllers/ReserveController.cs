@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Reflection.Metadata.Ecma335;
 using System.Security.Claims;
 
 namespace SistemaGestionGimnasioApi.Controllers
@@ -63,27 +64,6 @@ namespace SistemaGestionGimnasioApi.Controllers
             //}
             //return Forbid(); 
         }
-        [HttpGet("/my-reserves")]
-        [Authorize]
-        public IActionResult GetReservesByUser()
-        {
-            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            if (role == "Client")
-            {
-            try
-            {
-                    string email = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
-
-                    List<Reserve> reserves = _reserveService.GetReservesByUser(email);
-                return Ok(reserves);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Error al obtener la lista de reservas: " + ex.Message);
-            }
-            }
-            return Forbid("Usuario no autorizado a consultar"); 
-        }
 
         [HttpPost]
         [Authorize]
@@ -115,6 +95,25 @@ namespace SistemaGestionGimnasioApi.Controllers
 
                 return StatusCode(403, "Usuario no autorizado");
             }
+        }
+        [HttpPatch("{id}")]
+        [Authorize]
+        public async Task<IActionResult> ConfirmAssistance(int id)
+        {
+            string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
+            if (role == "Trainer")
+            {
+                Reserve reserve = _reserveService.GetReserveById(id);
+                if (reserve == null)
+                {
+                    return NotFound("Reserva inexistente");
+                }
+                _reserveService.ConfirmAssistance(reserve);
+                await _reserveService.SaveChangesAsync();
+                return Ok("Asistencia confirmada con exito");
+
+            }
+            return Forbid("Usuario no autorizado");
         }
         [HttpDelete("{id}")]
         [Authorize]

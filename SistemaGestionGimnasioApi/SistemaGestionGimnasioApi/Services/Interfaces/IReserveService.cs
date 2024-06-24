@@ -7,8 +7,8 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
     {
         Reserve GetReserveById(int id);
         List<Reserve> GetAllReserves();
-        List<Reserve> GetReservesByUser(string emailUser);
         Reserve CreateReserve(ReserveDto reserveDto, string emailClient);
+        void ConfirmAssistance(Reserve reserve);
 
         void DeleteReserve(Reserve reserveToDelete);
         Task<bool> SaveChangesAsync();
