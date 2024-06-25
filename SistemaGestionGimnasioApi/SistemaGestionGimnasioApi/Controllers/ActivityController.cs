@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
@@ -20,12 +21,8 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpGet("{activityName}", Name = nameof(GetActivityByName))]
-        //[Authorize]
         public IActionResult GetActivityByName(string activityName)
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             try
             {
                 Activity activity = _activityService.GetActivityByName(activityName);
@@ -40,18 +37,11 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return StatusCode(500, "Error al obtener la actividad con nombre: " + ex.Message);
             }
-
-            //}
-            //return Forbid();
         }
 
         [HttpGet]
-        //[Authorize]
         public IActionResult GetAllActivities()
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             try
             {
                 List<Activity> activities = _activityService.GetAllActivities();
@@ -61,17 +51,12 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return StatusCode(500, "Error al obtener la lista de actividades: " + ex.Message);
             }
-            //}
-            //return Forbid(); 
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateActivity([FromBody] ActivityDto activityDto)
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             if (activityDto == null)
             {
                 return BadRequest("La solicitud no puede ser nula");
@@ -83,21 +68,16 @@ namespace SistemaGestionGimnasioApi.Controllers
             Activity createdAactivity = _activityService.CreateActivity(activityDto);
             await _activityService.SaveChangesAsync();
             return CreatedAtRoute(nameof(GetActivityByName), new { activityName = activityDto.ActivityName }, activityDto);
-
-            //}
-            //return Forbid();
         }
+
         [HttpPut]
-        //[Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> EditActivity(ActivityDto activityEdited, string activityName)
         {
             if (activityEdited == null || activityName == null)
             {
                 return BadRequest();
             }
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             Activity activityEdit = _activityService.EditActivity(activityEdited, activityName);
             if (activityEdit == null)
             {
@@ -105,15 +85,12 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
             await _activityService.SaveChangesAsync();
             return Ok(activityEdited);
-            //}
-            //return Forbid();
         }
+
         [HttpDelete("{activityName}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteActivity(string activityName)
         {
-            //string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
-            //if (role == "Admin")
-            //{
             var activityToDelete = _activityService.GetActivityByName(activityName);
             if (activityToDelete == null)
             {
@@ -122,8 +99,6 @@ namespace SistemaGestionGimnasioApi.Controllers
             _activityService.DeleteActivity((Activity)activityToDelete);
             await _activityService.SaveChangesAsync();
             return NoContent();
-            //}
-            //return Forbid();
         }
     }
 }

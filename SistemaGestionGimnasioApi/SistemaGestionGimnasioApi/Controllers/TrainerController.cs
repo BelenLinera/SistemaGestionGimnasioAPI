@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SendGrid.Helpers.Errors.Model;
 using SistemaGestionGimnasioApi.Data.Entities;
@@ -19,6 +20,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpGet("{email}")]
+        [Authorize(Policy = "Admin-Trainer")]
         public IActionResult GetByEmail(string email)
         {
             try
@@ -44,6 +46,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpGet]
+        [Authorize(Policy = "Admin-Trainer")]
         public IActionResult GetAllTrainers() 
         {
             List<Trainer> trainers = _trainerService.GetAllTrainers();
@@ -51,6 +54,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateTrainer([FromBody] CreateTrainerDTO createTrainerDTO)
         {
            
@@ -71,6 +75,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPut("{email}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> UpdateByEmail( EditTrainerDto trainerupdated, string email)
         {
             
@@ -88,6 +93,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpDelete("{email}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteByEmail(string email)
         {
             
