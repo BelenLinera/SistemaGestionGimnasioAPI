@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SistemaGestionGimnasioApi.Controllers
 {
@@ -40,7 +41,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Admin-Client")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateClient([FromBody] UserDto userDto)
         {
             if (userDto == null)
@@ -57,20 +58,28 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPut]
-        [Authorize(Policy = "Admin-Client")]
+        [Authorize]
         public async Task<IActionResult> EditClient(EditUserDto clientEdited, string emailClient)
         {
-            if (clientEdited == null || emailClient == null)
+            string Clientemail = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+
+            if (Clientemail == emailClient || role == "Admin")
             {
-                return BadRequest();
+                if (clientEdited == null || emailClient == null)
+                {
+                    return BadRequest();
+                }
+                Client clientEdit = _clientService.EditClient(clientEdited, emailClient);
+                if (clientEdit == null)
+                {
+                    return NotFound($"El cliente con correo electrónico '{emailClient}' no se encontró.");
+                }
+                await _clientService.SaveChangesAsync();
+                return Ok(clientEdited);
             }
-            Client clientEdit = _clientService.EditClient(clientEdited, emailClient);
-            if (clientEdit == null)
-            {
-                return NotFound($"El cliente con correo electrónico '{emailClient}' no se encontró.");
-            }
-            await _clientService.SaveChangesAsync();
-            return Ok(clientEdited);
+
+            return Unauthorized();
         }
 
         [HttpPatch("{emailClient}/state")]
@@ -90,17 +99,26 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpDelete("{clientEmail}")]
-        [Authorize(Policy = "Admin-Client")]
+        [Authorize]
         public async Task<IActionResult> DeleteUser(string clientEmail)
         {
-            var clientToDelete = _clientService.GetClientByEmail(clientEmail);
-            if (clientToDelete == null)
+            string Clientemail = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
+
+            if (Clientemail == clientEmail || role == "Admin")
             {
-                return NotFound("Cliente inexistente");
+
+                var clientToDelete = _clientService.GetClientByEmail(clientEmail);
+                if (clientToDelete == null)
+                {
+                    return NotFound("Cliente inexistente");
+                }
+                _clientService.DeleteClient((Client)clientToDelete);
+                await _clientService.SaveChangesAsync();
+                return NoContent();
             }
-            _clientService.DeleteClient((Client)clientToDelete);
-            await _clientService.SaveChangesAsync();
-            return NoContent();
+
+            return Unauthorized();
         }
     }
 }

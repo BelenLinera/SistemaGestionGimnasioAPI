@@ -5,6 +5,7 @@ using SendGrid.Helpers.Errors.Model;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.Services.Interfaces;
+using System.Security.Claims;
 
 namespace SistemaGestionGimnasioApi.Controllers
 {
@@ -75,43 +76,46 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPut("{email}")]
-        [Authorize(Policy = "Admin")]
+        [Authorize]
         public async Task<IActionResult> UpdateByEmail( EditTrainerDto trainerupdated, string email)
         {
-            
-             if (string.IsNullOrEmpty(email))
-             {
-                 return BadRequest("El correo electrónico no puede estar vacío.");
-             }
+            string Traineremail = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
 
-            Trainer trainerEdited = _trainerService.UpdateByEmail(email, trainerupdated);
-            if (trainerEdited == null)  return NotFound($"El entrenador con correo electronico ´{email}´ no se encontró");
-            if (trainerEdited.TrainerActivities == null) return NotFound("Alguna de las actividades no existe");
-            await _trainerService.SaveChangesAsync();
-            return Ok(trainerEdited); 
+            if (Traineremail == email || role == "Admin")
+            {
+                if (string.IsNullOrEmpty(email))
+                {
+                    return BadRequest("El correo electrónico no puede estar vacío.");
+                }
 
+                Trainer trainerEdited = _trainerService.UpdateByEmail(email, trainerupdated);
+                if (trainerEdited == null)  return NotFound($"El entrenador con correo electronico ´{email}´ no se encontró");
+                if (trainerEdited.TrainerActivities == null) return NotFound("Alguna de las actividades no existe");
+                await _trainerService.SaveChangesAsync();
+                return Ok(trainerEdited); 
+            }
+
+            return Unauthorized();
         }
 
         [HttpDelete("{email}")]
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteByEmail(string email)
         {
-            
-                if (string.IsNullOrEmpty(email)) 
-                {
-                    return BadRequest("El correo electrónico no puede estar vacío.");
-                }
+            if (string.IsNullOrEmpty(email)) 
+            {
+                return BadRequest("El correo electrónico no puede estar vacío.");
+            }
 
-                var success = _trainerService.DeleteByEmail(email);
+            var success = _trainerService.DeleteByEmail(email);
 
-                if (!success)
-                {
-                    return NotFound($"No se encontró ningún entrenador con el correo electrónico: {email}");
-                }
-                await _trainerService.SaveChangesAsync();
-                return Ok(new {Message = "Baja logica realizada correctamente"});
-            
-            
+            if (!success)
+            {
+                return NotFound($"No se encontró ningún entrenador con el correo electrónico: {email}");
+            }
+            await _trainerService.SaveChangesAsync();
+            return Ok(new {Message = "Baja logica realizada correctamente"});
         }
     }
 
