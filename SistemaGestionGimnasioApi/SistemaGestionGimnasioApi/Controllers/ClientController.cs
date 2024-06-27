@@ -41,7 +41,6 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPost]
-        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateClient([FromBody] UserDto userDto)
         {
             if (userDto == null)
