@@ -64,6 +64,21 @@ namespace SistemaGestionGimnasioApi.Controllers
             //}
             //return Forbid(); 
         }
+        [HttpGet("my-reserves")]
+        [Authorize]
+        public IActionResult GetReservesByClient()
+        {
+            try
+            {
+                string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+                List<Reserve> reserves = _reserveService.GetReservesByClient(emailClient);
+                return Ok(reserves);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Error al obtener la lista de reservas: " + ex.Message);
+            }
+        }
 
         [HttpPost]
         [Authorize]
@@ -101,7 +116,7 @@ namespace SistemaGestionGimnasioApi.Controllers
         public async Task<IActionResult> ConfirmAssistance(int id)
         {
             string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
-            if (role == "Trainer")
+            if (role == "Trainer" || role == "Admin"  )
             {
                 Reserve reserve = _reserveService.GetReserveById(id);
                 if (reserve == null)

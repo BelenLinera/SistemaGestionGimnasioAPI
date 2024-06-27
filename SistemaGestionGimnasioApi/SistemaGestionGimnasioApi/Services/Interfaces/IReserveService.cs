@@ -5,8 +5,9 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
 {
     public interface IReserveService
     {
-        Reserve GetReserveById(int id);
         List<Reserve> GetAllReserves();
+        List<Reserve> GetReservesByClient(string emailUser);
+        Reserve GetReserveById(int id);
         Reserve CreateReserve(ReserveDto reserveDto, string emailClient);
         void ConfirmAssistance(Reserve reserve);
 

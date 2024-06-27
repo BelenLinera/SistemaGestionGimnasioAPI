@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
 using SistemaGestionGimnasioApi.DBContext;
@@ -29,6 +30,20 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
         public List<Reserve> GetAllReserves()
         {
             return _context.Reserves.ToList();
+        }
+        public List<Reserve> GetReservesByClient(string emailUser)
+        {
+            return  _context.Reserves
+                                .Include(r => r.GymClass)
+                                    .ThenInclude(gc => gc.TrainerActivity)
+                                        .ThenInclude(ta => ta.Activity)
+                                .Include(r => r.GymClass)
+                                    .ThenInclude(gc => gc.TrainerActivity)
+                                        .ThenInclude(ta => ta.Trainer) 
+                                .Where(r => r.ClientEmail == emailUser)
+                                .OrderByDescending(r => r.DateClass)
+                                .ToList();
+
         }
 
         public Reserve CreateReserve(ReserveDto reserveDto, string emailClient)
