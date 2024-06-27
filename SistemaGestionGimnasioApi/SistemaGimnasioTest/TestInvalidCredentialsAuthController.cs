@@ -13,6 +13,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
+using SistemaGestionGimnasioApi.Services.Implementations;
 
 namespace SistemaGestionGimnasioApi.Tests
 {
@@ -23,6 +24,7 @@ namespace SistemaGestionGimnasioApi.Tests
         private Mock<IEmailService> _emailServiceMock;
         private Mock<IConfiguration> _configMock;
         private AuthenticateController _authenticateController;
+        private IPasswordService _passwordHasherService;
 
         [TestInitialize]
         public void SetUp()
@@ -36,6 +38,7 @@ namespace SistemaGestionGimnasioApi.Tests
             _configMock.SetupGet(config => config["Authentication:Audience"]).Returns("Audience");
 
             _authenticateController = new AuthenticateController(_userServiceMock.Object, _configMock.Object, _emailServiceMock.Object);
+            _passwordHasherService = new PasswordService();
         }
 
 
@@ -43,7 +46,7 @@ namespace SistemaGestionGimnasioApi.Tests
         //[TestMethod]
         //public async Task Authenticate_ValidCredentials_ReturnsToken()
         //{
-        //    var credentialDto = new CredentialsDto { Email = "belu@example.com", Password = "wyJQfeBvjpuW1Ealc/35jQ==;0Awq0Qr3ykvYO9uAsaZUtiu/ejOdUbJl5WK9XQQ+JAk=" };
+        //    var credentialDto = new CredentialsDto { Email = "belu@example.com", Password = "Belu1234" };
         //    var validateUserResult = new BaseResponse { Result = true, Message = "Valid" };
         //    var user = new User { Email = "belu55@example.com", UserType = "Admin", Name = "belu", LastName = "linera" };
 
