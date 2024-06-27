@@ -21,12 +21,9 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpGet("{id}", Name = nameof(GetReserveById))]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetReserveById(int id)
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             try
             {
                 Reserve reserve = _reserveService.GetReserveById(id);
@@ -41,17 +38,12 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return StatusCode(500, "Error al obtener la reserva con id: " + ex.Message);
             }
-            //}
-            //return Forbid();
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetAllReserves()
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             try
             {
                 List<Reserve> reserves = _reserveService.GetAllReserves();
@@ -61,11 +53,9 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return StatusCode(500, "Error al obtener la lista de reservas: " + ex.Message);
             }
-            //}
-            //return Forbid(); 
         }
         [HttpGet("my-reserves")]
-        [Authorize]
+        [Authorize(Policy = "Client")]
         public IActionResult GetReservesByClient()
         {
             try
@@ -81,13 +71,12 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "Client")]
         public async Task<IActionResult> CreateReserve(ReserveDto reserveDto)
         {
-            string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
             string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             Client? client = _clientService.GetClientByEmail(emailClient);
-            if (role == "Client" && client.AutorizationToReserve == true)
+            if (client.AutorizationToReserve == true)
             {
                 if (reserveDto == null)
                 {
@@ -107,36 +96,26 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
             else
             {
-
                 return StatusCode(403, "Usuario no autorizado");
             }
         }
         [HttpPatch("{id}")]
-        [Authorize]
+        [Authorize(Policy = "Admin-Trainer")]
         public async Task<IActionResult> ConfirmAssistance(int id)
         {
-            string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
-            if (role == "Trainer" || role == "Admin"  )
+            Reserve reserve = _reserveService.GetReserveById(id);
+            if (reserve == null)
             {
-                Reserve reserve = _reserveService.GetReserveById(id);
-                if (reserve == null)
-                {
-                    return NotFound("Reserva inexistente");
-                }
-                _reserveService.ConfirmAssistance(reserve);
-                await _reserveService.SaveChangesAsync();
-                return Ok("Asistencia confirmada con exito");
-
+                return NotFound("Reserva inexistente");
             }
-            return Forbid("Usuario no autorizado");
+            _reserveService.ConfirmAssistance(reserve);
+            await _reserveService.SaveChangesAsync();
+            return Ok("Asistencia confirmada con exito");
         }
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "Client")]
         public async Task<IActionResult> DeleteReserve(int id)
         {
-            //string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
-            //if (role == "Admin")
-            //{
             Reserve? reserveToDelete = _reserveService.GetReserveById(id);
             string emailClient = User.Claims.FirstOrDefault(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             if (reserveToDelete == null)
@@ -150,7 +129,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 return NoContent();
             }
 
-            return Forbid();
+            return Forbid("Usuario no autorizado");
         }
 
     }
