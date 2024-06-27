@@ -64,6 +64,16 @@ builder.Services.AddAuthentication("Bearer")
         };
     });
 
+// Configuracion de la autotizacion por roles
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin", policy => policy.RequireRole("Admin"));
+    options.AddPolicy("Trainer", policy => policy.RequireRole("Trainer"));
+    options.AddPolicy("Client", policy => policy.RequireRole("Client"));
+    options.AddPolicy("Admin-Trainer", policy => policy.RequireRole("Admin", "Trainer"));
+    options.AddPolicy("Admin-Client", policy => policy.RequireRole("Admin", "Client"));
+});
+
 // Inyección de dependencias
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IPasswordService, PasswordService>();
