@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SistemaGestionGimnasioApi.Data.Entities;
 using SistemaGestionGimnasioApi.Data.Models;
@@ -19,43 +20,29 @@ namespace SistemaGestionGimnasioApi.Controllers
         }
 
         [HttpGet("{idGymClass}", Name = nameof(GetGymClassById))]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetGymClassById(int idGymClass)
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             GymClass gymClass = _gymClassService.GetGymClassById(idGymClass);
             if (gymClass == null)
             {
                 return NotFound();
             }
             return Ok(gymClass);
-
-            //}
-            //return Forbid();
         }
 
         [HttpGet]
-        //[Authorize]
+        [Authorize]
         public IActionResult GetAllGymClasses()
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             List<GymClass> gymClasses = _gymClassService.GetAllGymClasses();
             return Ok(gymClasses);
-            //}
-            //return Forbid(); 
         }
 
         [HttpPost]
-        //[Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> CreateGymClass([FromBody] GymClassDto gymClassDto)
         {
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             if (gymClassDto == null)
             {
                 return BadRequest("La solicitud no puede ser nula");
@@ -65,22 +52,16 @@ namespace SistemaGestionGimnasioApi.Controllers
             //return CreatedAtRoute(nameof(GetGymClassById), new { idGymClass = gymClassDto.IdGymClass }, gymClassDto);
 
             return CreatedAtRoute(nameof(GetGymClassById), new { idGymClass = createdGymClass.IdGymClass }, gymClassDto);
-
-            //}
-            //return Forbid();
         }
 
         [HttpPut]
-        //[Authorize]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> EditGymClass(GymClassDto gymClassEdited, int idGymClass)
         {
             if (gymClassEdited == null || idGymClass == null)
             {
                 return BadRequest();
             }
-            //string role = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Role).Value.ToString();
-            //if (role == "Admin")
-            //{
             GymClass gymClassEdit = _gymClassService.EditGymClass(gymClassEdited, idGymClass);
             if (gymClassEdit == null)
             {
@@ -88,16 +69,12 @@ namespace SistemaGestionGimnasioApi.Controllers
             }
             await _gymClassService.SaveChangesAsync();
             return Ok(gymClassEdited);
-            //}
-            //return Forbid();
         }
 
         [HttpDelete("{idGymClass}")]
+        [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteGymClass(int idGymClass)
         {
-            //string role = User.Claims.SingleOrDefault(c => c.Type.Contains("role")).Value;
-            //if (role == "Admin")
-            //{
             var gymClassToDelete = _gymClassService.GetGymClassById(idGymClass);
             if(gymClassToDelete == null)
             {
@@ -106,8 +83,6 @@ namespace SistemaGestionGimnasioApi.Controllers
             _gymClassService.DeleteGymClass((GymClass)gymClassToDelete);
             await _gymClassService.SaveChangesAsync();
             return NoContent();
-            //}
-            //return Forbid();
         }
     }
 }
