@@ -13,6 +13,7 @@ namespace SistemaGestionGimnasioApi.DBContext
         public DbSet<Activity> Activities { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<GymClass> GymClasses { get; set; }
+        public DbSet<CancelledClassDate> CancelledClassDates { get; set; }
         public DbSet<Client> Clients { get; set; }
         public DbSet<Reserve> Reserves { get; set; }
         public DbSet<Trainer> Trainers { get; set; }
@@ -45,6 +46,10 @@ namespace SistemaGestionGimnasioApi.DBContext
                 .HasOne(r => r.Client)
                 .WithMany()
                 .HasForeignKey(r => r.ClientEmail);
+            modelBuilder.Entity<GymClass>()
+                .HasMany(g => g.CancelledDates)
+                .WithOne(cd => cd.GymClass)
+                .HasForeignKey(cd => cd.GymClassId);
 
 
 

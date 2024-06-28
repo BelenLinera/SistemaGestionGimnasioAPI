@@ -22,5 +22,7 @@ namespace SistemaGestionGimnasioApi.Data.Entities
 
         [NotMapped]
         public string DayName => Days.ToString();
+
+        public ICollection<CancelledClassDate> CancelledDates { get; set; } = new List<CancelledClassDate>();
     }
 }
