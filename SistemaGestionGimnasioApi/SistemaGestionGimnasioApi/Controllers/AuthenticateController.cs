@@ -11,13 +11,13 @@ namespace SistemaGestionGimnasioApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AutheticateController : ControllerBase
+    public class AuthenticateController : ControllerBase
     {
         public IUserService _userService;
         public IEmailService _emailService;
         public IConfiguration _config;
 
-        public AutheticateController(IUserService userService, IConfiguration config, IEmailService emailService)
+        public AuthenticateController(IUserService userService, IConfiguration config, IEmailService emailService)
         {
             _userService = userService;
             _config = config;

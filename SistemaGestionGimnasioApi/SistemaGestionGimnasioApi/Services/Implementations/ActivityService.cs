@@ -21,7 +21,6 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             try
             {
                 return _context.Activities.FirstOrDefault(a => a.ActivityName == activityName);
-                //return _context.Activities.FirstOrDefault(a => a.ActivityName == activityName);
             }
             catch (Exception ex)
             {
