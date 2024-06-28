@@ -41,7 +41,7 @@ builder.Services.AddSwaggerGen(setupAction =>
 });
 
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGen(); 
 
 // Configuración de la base de datos
 var connectionString = builder.Configuration.GetConnectionString("SystemGymDBConnectionString");
@@ -84,7 +84,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IGymClassService, GymClassService>();
 builder.Services.AddScoped<IClientService, ClientService>();
 builder.Services.AddScoped<ITrainerService, TrainerService>();
-//builder.Services.AddScoped<IReserveService, ReserveService>();
+builder.Services.AddScoped<IReserveService, ReserveService>();
 
 var app = builder.Build();
 
