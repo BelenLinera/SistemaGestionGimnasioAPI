@@ -70,6 +70,20 @@ namespace SistemaGestionGimnasioApi.Controllers
             await _gymClassService.SaveChangesAsync();
             return Ok(gymClassEdited);
         }
+        [HttpPost("cancel")]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> CancelClass(int idGymClass, DateTime dateToCancel)
+        {
+            if (dateToCancel == default)
+            {
+                return BadRequest("La fecha no puede ser nula.");
+            }
+
+            await _gymClassService.CancelClassAsync(idGymClass, dateToCancel);
+            await _gymClassService.SaveChangesAsync();
+
+            return Ok();
+        }
 
         [HttpDelete("{idGymClass}")]
         [Authorize(Policy = "Admin")]
@@ -84,5 +98,6 @@ namespace SistemaGestionGimnasioApi.Controllers
             await _gymClassService.SaveChangesAsync();
             return NoContent();
         }
+
     }
 }
