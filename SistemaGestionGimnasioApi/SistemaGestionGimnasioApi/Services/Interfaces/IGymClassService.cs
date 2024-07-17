@@ -9,10 +9,8 @@ namespace SistemaGestionGimnasioApi.Services.Interfaces
         List<GymClass> GetAllGymClasses();
         GymClass CreateGymClass(GymClassDto gymClassDto);
         GymClass EditGymClass(GymClassDto gymClassEdited, int idGymClass);
-
         Task CancelClassAsync(int idGymClass, DateTime dateToCancel);
-        void DeleteGymClass(GymClass gymClassToDelete);
-
+        Task DeleteGymClass(GymClass gymClassToDelete);
         Task<bool> SaveChangesAsync();
     }
 }
