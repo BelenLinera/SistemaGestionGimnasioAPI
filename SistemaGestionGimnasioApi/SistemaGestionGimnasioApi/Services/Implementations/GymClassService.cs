@@ -101,17 +101,21 @@ namespace SistemaGestionGimnasioApi.Services.Implementations
             
         }
 
-        public void DeleteGymClass(GymClass gymClassToDelete)
+        public async Task DeleteGymClass(GymClass gymClassToDelete)
         {
-            if (gymClassToDelete == null) 
+            if (gymClassToDelete == null)
             {
                 throw new ArgumentNullException(nameof(gymClassToDelete));
             }
+
             _context.Remove(gymClassToDelete);
+
+            await _context.SaveChangesAsync();
+
             NotifyReservesOfChanges(gymClassToDelete.IdGymClass, gymClassToDelete, "Clase cancelada", $"La clase de {gymClassToDelete.TrainerActivity.Activity.ActivityName} los {gymClassToDelete.DayName} a las {gymClassToDelete.TimeClass} ha sido cancelada y ya no estará disponible.");
         }
 
-        private async void NotifyReservesOfChanges(int idGymClass, GymClass gymClass, string subject, string message)
+        private async Task NotifyReservesOfChanges(int idGymClass, GymClass gymClass, string subject, string message)
         {
             DateTime now = DateTime.Now;
 

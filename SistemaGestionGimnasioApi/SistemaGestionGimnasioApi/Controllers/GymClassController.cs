@@ -48,8 +48,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 return BadRequest("La solicitud no puede ser nula");
             }
             GymClass createdGymClass = _gymClassService.CreateGymClass(gymClassDto);
-            await _gymClassService.SaveChangesAsync();
-            //return CreatedAtRoute(nameof(GetGymClassById), new { idGymClass = gymClassDto.IdGymClass }, gymClassDto);
+            await _gymClassService.SaveChangesAsync();;
 
             return CreatedAtRoute(nameof(GetGymClassById), new { idGymClass = createdGymClass.IdGymClass }, gymClassDto);
         }
@@ -62,7 +61,7 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return BadRequest();
             }
-            GymClass gymClassEdit = _gymClassService.EditGymClass(gymClassEdited, idGymClass);
+            GymClass gymClassEdit =_gymClassService.EditGymClass(gymClassEdited, idGymClass);
             if (gymClassEdit == null)
             {
                 return NotFound($"La clase con id '{idGymClass}' no se encontro. ");
@@ -89,12 +88,12 @@ namespace SistemaGestionGimnasioApi.Controllers
         [Authorize(Policy = "Admin")]
         public async Task<IActionResult> DeleteGymClass(int idGymClass)
         {
-            var gymClassToDelete = _gymClassService.GetGymClassById(idGymClass);
+            GymClass gymClassToDelete = _gymClassService.GetGymClassById(idGymClass);
             if(gymClassToDelete == null)
             {
                 return NotFound("Clase inexistente");
             }
-            _gymClassService.DeleteGymClass((GymClass)gymClassToDelete);
+            await _gymClassService.DeleteGymClass(gymClassToDelete);
             await _gymClassService.SaveChangesAsync();
             return NoContent();
         }
