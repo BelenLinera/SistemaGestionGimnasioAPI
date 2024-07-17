@@ -15,10 +15,12 @@ namespace SistemaGestionGimnasioApi.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
+        private readonly IUserService _userService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IUserService userService)
         {
             _adminService = adminService;
+            _userService = userService;
         }
 
         [HttpGet("{email}", Name = nameof(GetAdminByEmail))]
@@ -60,7 +62,7 @@ namespace SistemaGestionGimnasioApi.Controllers
                 {
                     return BadRequest("La solicitud no puede ser nula");
                 }
-                if( _adminService.GetAdminByEmail(userDto.Email) != null  )
+                if( _userService.GetUserByEmail(userDto.Email) != null  )
                 {
                 return Conflict("Este email ya esta en uso");
                 }

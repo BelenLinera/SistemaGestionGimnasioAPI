@@ -15,9 +15,10 @@ namespace SistemaGestionGimnasioApi.Controllers
         private readonly IClientService _clientService;
         private readonly IUserService _userService;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IClientService clientService, IUserService userService)
         {
             _clientService = clientService;
+            _userService = userService;
         }
 
         [HttpGet("{email}", Name = nameof(GetClientByEmail))]
@@ -47,7 +48,7 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return BadRequest("La solicitud no puede ser nula");
             }
-            if (_clientService.GetClientByEmail(userDto.Email) != null)
+            if (_userService.GetUserByEmail(userDto.Email) != null)
             {
                 return Conflict("Este email ya esta en uso");
             }
