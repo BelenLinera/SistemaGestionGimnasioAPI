@@ -14,10 +14,12 @@ namespace SistemaGestionGimnasioApi.Controllers
     public class TrainerController : ControllerBase
     {
         private readonly ITrainerService _trainerService;
+        private readonly IUserService _userService;
 
-        public TrainerController (ITrainerService trainerService)
+        public TrainerController (ITrainerService trainerService, IUserService userService)
         {
             _trainerService = trainerService;
+            _userService = userService;
         }
 
         [HttpGet("{email}")]
@@ -63,15 +65,15 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return BadRequest("La solicitud no puede ser nula");
             }
-            if (_trainerService.GetByEmail(createTrainerDTO.Email) != null)
+            if (_userService.GetUserByEmail(createTrainerDTO.Email) != null)
             {
-                return Conflict("Este email ya está en uso");
+                return Conflict("Este email ya está en uso ");
             }
 
             Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
             if (createdTrainer == null) return NotFound("Alguna de las actividades no existe");
             await _trainerService.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
+            return CreatedAtRoute(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
             
         }
 
