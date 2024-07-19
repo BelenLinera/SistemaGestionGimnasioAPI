@@ -62,7 +62,8 @@ namespace SistemaGestionGimnasioApi.Controllers
                 {
                     return BadRequest("La solicitud no puede ser nula");
                 }
-                if( _userService.GetUserByEmail(userDto.Email) != null  )
+                User userInUse = await _userService.GetUserByEmail(userDto.Email);
+                if(userInUse != null)
                 {
                 return Conflict("Este email ya esta en uso");
                 }

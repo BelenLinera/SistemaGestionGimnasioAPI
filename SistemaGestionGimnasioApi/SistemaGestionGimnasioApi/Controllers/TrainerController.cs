@@ -65,7 +65,8 @@ namespace SistemaGestionGimnasioApi.Controllers
             {
                 return BadRequest("La solicitud no puede ser nula");
             }
-            if (_userService.GetUserByEmail(createTrainerDTO.Email) != null)
+            User userInUse = await _userService.GetUserByEmail(createTrainerDTO.Email);
+            if (userInUse != null)
             {
                 return Conflict("Este email ya está en uso ");
             }
@@ -73,7 +74,7 @@ namespace SistemaGestionGimnasioApi.Controllers
             Trainer createdTrainer = _trainerService.CreateTrainer(createTrainerDTO);
             if (createdTrainer == null) return NotFound("Alguna de las actividades no existe");
             await _trainerService.SaveChangesAsync();
-            return CreatedAtRoute(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
+            return CreatedAtAction(nameof(GetByEmail), new { email = createTrainerDTO.Email }, createTrainerDTO);
             
         }
 
